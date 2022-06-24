@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maqueta virtual</title>
+    <!--Fuentes-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;900&display=swap" rel="stylesheet">
+    <!--Tabs
+    <link rel="stylesheet" href="./js/vanilla-tabs.min.css">
+    <script src="./js/vanilla-tabs.min.js"></script>
+    x-->
+</head>
+
+<body>
+    <div id="pantalla-carga">
+        <img src="https://chromastudio.co/sole/wp-content/uploads/2022/03/sole-logo-azul.svg" width="144px"
+            height="auto" alt="sole-logo">
+        <div class="loading-barra"></div>
+    </div>
+    <header id="sole-encabezado">
+        <div class="elementor-column elementor-col-33">
+            <div class="elementor-widget-container">
+                <a href="https://chromastudio.co/sole/">
+                    <img src="https://chromastudio.co/sole/wp-content/uploads/2022/03/sole-logo-azul.svg" width="44px"
+                        height="106px" alt="sole-logo" style="transform: rotate(90deg);"></a>
+            </div>
+        </div>
+        <div class="elementor-column elementor-col-33 ">
+            <ul id="menu-menu-principal">
+                <li class="menu-item current-menu-item">
+                    <a href="https://chromastudio.co/sole/maqueta/">Maqueta</a>
+                </li>
+                <li class="menu-item">
+                    <a href="https://chromastudio.co/sole/ubicacion/">Ubicación</a>
+                </li>
+                <li class="menu-item">
+                    <a href="https://chromastudio.co/sole/plantas/">Plantas</a>
+                </li>
+                <li class="menu-item">
+                    <a href="https://chromastudio.co/sole/zonas-comunes/">Zonas comunes</a>
+                </li>
+                <li class="menu-item">
+                    <a href="https://chromastudio.co/sole/arquitectura/">Arquitectura</a>
+                </li>
+            </ul>
+        </div>
+        <div class="elementor-column elementor-col-33 ">
+            <a href="#" class="" role="button">
+                <span class="elementor-button-content-wrapper">
+                    <span class="elementor-button-text">!</span>
+                </span>
+            </a>
+        </div>
+    </header>
+    <!--Escena-->
+    <canvas class="webgl"></canvas>
+    <!--Brújula-->
+    <div id="brujula">
+        <img src="https://chromastudio.co/sole/wp-content/uploads/2022/04/sole_brujula_n.svg" alt="Brújula">
+    </div>
+    <!--Menu-->
+    <nav id="maqueta-menu">
+        <a href="#" class="btn-cerrar">
+            <!--<i></i>-->
+            <img src="https://chromastudio.co/sole/wp-content/uploads/2022/03/flecha-sole-1.svg" alt="Cerrar">
+        </a>
+        <ul>
+            <li>
+                <a href="#" data-tipo='apto_tipo_1' class="tipo-enlace"></a>
+                <div class="menu-item-info">
+                    <div class="menu-item-col-img">
+                        <img src="https://chromastudio.co/sole/wp-content/uploads/2022/03/mini-apto-1.jpg" alt="Apto">
+                    </div>
+                    <div class="menu-item-col-txt">
+                        <h2>TIPO 1</h2>
+                        <p class="menu-item-ac">Área construida: <span>106.52</span>m²</p>
+                        <p class="menu-item-ap">Área privada: <span>93.72</span>m²</p>
+                        <p class="menu-item-hab">Habitaciones: <span>3</span></p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#" data-tipo='apto_tipo_2' class="tipo-enlace"></a>
+                <div class="menu-item-info">
+                    <div class="menu-item-col-img">
+                        <img src="https://chromastudio.co/sole/wp-content/uploads/2022/03/mini-apto-2.jpg" alt="Apto">
+                    </div>
+                    <div class="menu-item-col-txt">
+                        <h2>TIPO 2</h2>
+                        <p class="menu-item-ac">Área construida: <span>96.78</span>m²</p>
+                        <p class="menu-item-ap">Área privada: <span>85.83</span>m²</p>
+                        <p class="menu-item-hab">Habitaciones: <span>3</span></p>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#" data-tipo='apto_tipo_3' class="tipo-enlace"></a>
+                <div class="menu-item-info">
+                    <div class="menu-item-col-img">
+                        <img src="https://chromastudio.co/sole/wp-content/uploads/2022/03/mini-apto-3.jpg" alt="Apto">
+                    </div>
+                    <div class="menu-item-col-txt">
+                        <h2>TIPO 3</h2>
+                        <p class="menu-item-ac">Área construida: <span>86.59</span>m²</p>
+                        <p class="menu-item-ap">Área privada: <span>76.66</span>m²</p>
+                        <p class="menu-item-hab">Habitaciones: <span>3</span></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!--Menu secundario-->
+    <nav id="menu-secundario">
+        <ul>
+            <li><a id="btnInfo" href="#"><img
+                        src="https://chromastudio.co/sole/wp-content/uploads/2022/03/ico-sole-atencion.svg"
+                        alt="INFO"><span>INFO</span></a></li>
+            <li><a id="btnAcceso" href="#"><img
+                        src="https://chromastudio.co/sole/wp-content/uploads/2022/03/flec-der.svg"
+                        alt="ACCESO"><span>ACCESO</span></a></li>
+            <li><a id="btnVista" href="#"><img
+                        src="https://chromastudio.co/sole/wp-content/uploads/2022/03/ico-sole-buscar.svg"
+                        alt="VISTA"><span>VISTA</span></a></li>
+        </ul>
+    </nav>
+    <!--Menú vista-->
+    <nav id="menu-vista">
+        <a href="#">360°</a>
+        <a href="#">Planos</a>
+    </nav>
+    <!--Menú principal-->
+    <nav id="menu-principal">
+        <a href="#" id="btn-unidades">Unidades</a>
+        <a href="#" id="btn-cercanias">Cercanías</a>
+        <a href="#" id="btn-favoritos">Favoritos</a>
+    </nav>
+    <!--Modal unidades-->
+    <!--Modal cercanías-->
+    <!--Modal favoritos-->
+    <!--Hotspots-->
+    <div class="hotspots-wrapper hw-zonas">
+        <div class="hotspot hotspot-0">
+            <div class="label"></div>
+            <div class="texto">Terraza BBQ</div>
+        </div>
+        <div class="hotspot hotspot-1">
+            <div class="label"></div>
+            <div class="texto">Social Kitchen</div>
+        </div>
+        <div class="hotspot hotspot-2">
+            <div class="label"></div>
+            <div class="texto">Lobby</div>
+        </div>
+        <div class="hotspot hotspot-3">
+            <div class="label"></div>
+            <div class="texto">Salón de juegos</div>
+        </div>
+        <div class="hotspot hotspot-4">
+            <div class="label"></div>
+            <div class="texto">Salón social</div>
+        </div>
+        <div class="hotspot hotspot-5">
+            <div class="label"></div>
+            <div class="texto">Piscina</div>
+        </div>
+    </div>
+    <div class="hotspots-wrapper hw-info">
+        <div class="hotspot hotspot-6">
+            <div class="label"></div>
+            <div class="texto">Comercio
+                <div class="distancia">
+                    <span class="pie">3 minutos</span><span class="bici">1 minuto</span>
+                </div>
+            </div>
+        </div>
+        <div class="hotspot hotspot-7">
+            <div class="label"></div>
+            <div class="texto">Club El Rancho
+                <div class="distancia">
+                    <span class="pie">5 minutos</span><span class="bici">3 minutos</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hotspot hotspot-8">
+            <div class="label"></div>
+            <div class="texto">Makro
+                <div class="distancia">
+                    <span class="pie">12 minutos</span><span class="bici">8 minutos</span><span class="carro">5 minutos</span>
+                </div>
+            </div>
+        </div>
+        <div class="hotspot hotspot-9">
+            <div class="label"></div>
+            <div class="texto">Gimnasio Vermont
+                <div class="distancia">
+                    <span class="pie">12 minutos</span><span class="bici">8 minutos</span><span class="carro">5 minutos</span>
+                </div>
+            </div>
+        </div>
+        <div class="hotspot hotspot-10">
+            <div class="label"></div>
+            <div class="texto">C.C Santafé
+                <div class="distancia">
+                    <span class="bici">20 minutos</span><span class="carro">8 minutos</span>
+                </div>
+            </div>
+        </div>
+        <div class="hotspot hotspot-11">
+            <div class="label"></div>
+            <div class="texto">Chía
+                <div class="distancia">
+                    <span class="carro">25 minutos</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Hotspots-->
+    <div id="modal-hotspots">
+        <div class="modal-hotspot-contenedor">
+            <a href="#" class="btn-volver btn-volver-hot"><img
+                    src="https://chromastudio.co/sole/wp-content/uploads/2022/03/flecha-sole-1.svg" alt="Cerrar"></a>
+            <div class="hotspot-img">
+            </div>
+            <p class="hotspot-label"></p>
+        </div>
+    </div>
+    <!--Modal Aptos-->
+    <div id="modal-aptos">
+        <div class="modal-apto-contenedor">
+            <a href="#" class="btn-volver btn-volver-apto"><img
+                    src="https://chromastudio.co/sole/wp-content/uploads/2022/03/flecha-sole-1.svg" alt="Cerrar"></a>
+            <div class="fila-principal">
+                <div class="col-info">
+                    <h2 class="apto_tit"></h2>
+                    <div class="cont-areas">
+                        <p class="area_ac">Área construida: <span></span>m²</p>
+                        <p class="area_ap">Área privada: <span></span>m²</p>
+                        <!--<p class="area_b">Área balcón: <span></span>m²</p>-->
+                    </div>
+                    <ul class="atributos">
+                    </ul>
+                    <div class="btn-tour-wrapper">
+                        <a id="btn-tour-360" href="#">Ver tour 360</a>
+                    </div>
+                </div>
+                <div class="col-planos">
+                    <div class="img_planta"></div>
+                    <!--<ul id="tabs-h" class="tabs">
+                        <li data-title="Planos"><div class="img_planta"></div></li>
+                        <li data-title="Planta tipo"><div class="img_piso"></div></li>
+                    </ul>-->
+                </div>
+            </div>
+            <div class="fila-tour">
+
+            </div>
+            <div class="fila-galeria"></div>
+        </div>
+    </div>
+    <!--Modal Tour-->
+    <div id="modal-tour">
+        <div class="appicua-tour-wrapper">
+            <iframe class="appicua-tour" src=""></iframe>
+            <button class="btn-cerrar-360">X</button>
+        </div>
+    </div>
+</body>
+
+</html>

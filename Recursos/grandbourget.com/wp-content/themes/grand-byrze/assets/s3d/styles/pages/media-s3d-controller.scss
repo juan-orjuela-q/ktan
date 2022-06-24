@@ -1,0 +1,208 @@
+@media screen and (min-width: 1023px) {
+  .s3d {
+    &-ctr {
+      &__filter {
+        &:hover {
+          background-position: 0 0;
+          .s3d-ctr__filter__icon circle:nth-of-type(1) {
+            cx: 5.5;
+          }
+          .s3d-ctr__filter__icon circle:nth-of-type(2) {
+            cx: 5.5;
+          }
+          .s3d-ctr__filter__icon circle:nth-of-type(3) {
+            cx: 20.5;
+          }
+        }
+      }
+      &__helper {
+        &:hover {
+          &:after {
+            transform: translateX(0);
+          }
+        }
+      }
+    }
+    &-nav__btn {
+      &:focus {
+        outline-color: $color6;
+      }
+      &:hover:not(.active ):not( [ disabled ] ) {
+        background: $color6;
+        color: $color2;
+        width: 100%;
+        &:after {
+          border-left: 6px solid $option-arrow-color-active;
+        }
+      }
+      &:hover {
+        color: $color2;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .s3d {
+    &-ctr {
+      &__filter {
+        &__text {
+          padding: 0 30px 0 20px;
+          font-size: 12px;
+        }
+      }
+    }
+    &-nav {
+      &__btn {
+        padding: 10px $nav-offset-text;
+        font-size: 12px;
+        &__title {
+          font-size: 18px;
+        }
+      }
+    }
+    &__choose--flat {
+      height: 50px;
+      label:first-of-type {
+        padding: 0 30px 0 40px;
+      }
+      label:last-of-type {
+        padding: 0 40px 0 30px;
+      }
+      &--button {
+        padding: 0 40px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .s3d {
+    &-ctr {
+      grid-template-rows: 40px auto 1fr auto 40px 60px;
+      grid-template-columns: auto 1fr auto auto;
+      grid-template-areas: '. . . .'
+      'filter filter choose choose'
+      ' . . . . '
+      'title . helper compass'
+      '. . . . '
+      'controller controller controller controller';
+      &__nav {
+        width: calc(100% + var(--offset-controller-hor) * 2);
+        height: 100%;
+        padding: 0;
+        margin: 0 0 0 calc(-1 * var(--offset-controller-hor));
+        flex-direction: row;
+        align-items: center;
+        &__title {
+          display: none;
+        }
+        &:before {
+          display: none;
+        }
+      }
+      &__option {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        &__buttons {
+          right: 0;
+          left: 0;
+          transform: translate(0, -100%);
+          .s3d-nav__btn {
+            width: 100%;
+            flex: 1 1 100%;
+            padding: 20px 0;
+          }
+        }
+        &.s3d-nav__btn {
+          justify-content: center;
+          align-items: center;
+        }
+
+        &:after {
+          transform: translate(0, -50%)rotate(-90deg);
+        }
+        &:focus, &:hover {
+          &:after {
+            transform: translate(0, -50%)rotate(90deg);
+          }
+        }
+      }
+    }
+    &-nav {
+      &__btn {
+        height: 100%;
+        width: 33.3%;
+        flex: 1 1 33%;
+        font-size: 16px;
+        padding: 0 5px;
+        justify-content: center;
+        &[data-type="floor"] {
+          display: none;
+        }
+        border-bottom: 1px solid $border-color;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .s3d {
+    &-ctr {
+      grid-template-rows: 20px auto 1fr auto 15px 40px;
+      grid-template-columns: auto 1fr auto auto;
+      grid-template-areas: '. . . .'
+      'filter choose choose choose'
+      '. . . .'
+      'title title helper compass'
+      '. . . .'
+      'controller controller controller controller';
+      &__filter {
+        background: none;
+        &__text {
+          display: none;
+        }
+      }
+      &__helper {
+        font-size: 9px;
+        margin: auto 15px 0 0;
+      }
+      &__option {
+        &__buttons {
+          .s3d-nav__btn {
+            padding: 10px 0;
+          }
+        }
+      }
+    }
+    &__choose--flat {
+      justify-self: flex-end;
+      height: 40px;
+      label:first-of-type {
+        padding: 0 10px 0 20px;
+      }
+      label:last-of-type {
+        padding: 0 20px 0 10px;
+      }
+      &--button {
+        padding: 0 30px;
+        font-size: 10px;
+      }
+    }
+    &-nav {
+      &__btn {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .s3d {
+    &-ctr{
+
+    }
+  }
+}

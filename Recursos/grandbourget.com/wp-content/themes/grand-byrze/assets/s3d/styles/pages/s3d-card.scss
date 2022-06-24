@@ -1,0 +1,133 @@
+.s3d {
+  &-card {
+    --size-circle-button: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 302px;
+    max-width: 350px;
+    max-height: 480px;
+    padding: 35px;
+    border: 1px solid $border-color;
+    transition: box-shadow .5s ease-out, background-color 0.5s ease-in-out;
+    background-color: $wc;
+
+    &__image {
+      position: relative;
+      height: 170px;
+      max-width: 100%;
+      margin-bottom: 30px;
+      text-align: center;
+      z-index: 2;
+      transition: opacity 0.6s cubic-bezier(.41,.57,.26,1);
+      img {
+        display: inline-block;
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+      }
+    }
+    &__title {
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2em;
+      color: $color1;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    &__table {
+      width: 100%;
+    }
+    .s3d__close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 35px;
+      width: 35px;
+      display: none;
+    }
+    &__row {
+      display: flex;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.3em;
+      color: $color1;
+      margin-bottom: 15px;
+      &:last-child {
+        margin: 0;
+      }
+    }
+    &__name {
+      display: flex;
+      flex: 1 1 60%;
+      &:after {
+        content: "";
+        display: flex;
+        flex: 1 1 5%;
+        margin: 0 0.5ch;
+        border-bottom: 1px solid $border-color;
+      }
+    }
+    &__value {
+      flex: 1 0 20%;
+    }
+
+    &__link {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      border: none;
+      text-transform: capitalize;
+      text-decoration: none;
+      padding: 0;
+      margin-left: 10px;
+      color: $color1;
+      background: transparent;
+      cursor: pointer;
+      overflow: hidden;
+      pointer-events: painted;
+      z-index: 1;
+      &-text {
+        pointer-events: none;
+        margin-right: 15px;
+        font-size: 17px;
+        line-height: 1.3em;
+        font-weight: 500;
+        color: $color1;
+        text-transform: capitalize;
+      }
+    }
+    &__arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: var(--size-circle-button);
+      width: var(--size-circle-button);
+      border-radius: 50%;
+      border: 1px solid $border-color;
+      flex: 0 0 auto;
+      transition: border 0.4s ease-in-out;
+      svg {
+        stroke: $color1;
+      }
+    }
+    .s3d__favourite {
+      height: var(--size-circle-button);
+      width: var(--size-circle-button);
+      border: 1px solid $border-color;
+      border-radius: 50%;
+      svg {
+        height: 35%;
+        width: 35%;
+      }
+    }
+    &__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 20px;
+    }
+  }
+}

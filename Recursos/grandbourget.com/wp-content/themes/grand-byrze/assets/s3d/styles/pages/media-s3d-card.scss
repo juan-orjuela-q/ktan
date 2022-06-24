@@ -1,0 +1,107 @@
+@media screen and (min-width: 1023px) {
+  .s3d {
+    &-card {
+      &:hover {
+        cursor: pointer;
+        background-color: #F9F8F6;
+      }
+      &__link:hover {
+        .s3d-card__arrow {
+          border-color: $color1;
+        }
+      }
+
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .s3d {
+    &-card {
+      --size-circle-button: 40px;
+      flex: 1 1 262px;
+      max-width: 320px;
+      max-height: 400px;
+      padding: 25px 30px;
+      &__image {
+        height: 140px;
+        margin-bottom: 25px;
+      }
+      &__title {
+        font-size: 16px;
+      }
+      &__row {
+        font-size: 14px;
+      }
+      &__link {
+        &-text {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .s3d {
+    &-card {
+      flex: 1 1 229px;
+      max-width: 280px;
+      max-height: 385px;
+      padding: 25px 20px;
+      &__image {
+        height: 130px;
+      }
+      &__link {
+        &-text {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .s3d {
+    &-card {
+      flex: 1 1 140px;
+      max-width: 200px;
+      max-height: 260px;
+      padding: 15px 10px;
+      &__image {
+        height: 90px;
+      }
+      &__title {
+        font-size: 10px;
+        margin-bottom: 7px;
+      }
+      &__row {
+        font-size: 10px;
+        margin-bottom: 4px;
+      }
+      &__link {
+        &-text {
+          margin-right: 10px;
+          font-size: 10px;
+        }
+      }
+      &__arrow {
+        border: none;
+        width: auto;
+        height: auto;
+      }
+      &__buttons {
+        margin-top: 15px;
+      }
+      .s3d__favourite {
+        height: 30px;
+        width: 30px;
+      }
+      .s3d__close {
+        height: 30px;
+        width: 30px;
+        transform: translate(15%, -15%);
+      }
+    }
+  }
+}

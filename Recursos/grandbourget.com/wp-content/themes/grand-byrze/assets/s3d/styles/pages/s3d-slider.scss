@@ -1,0 +1,230 @@
+.s3d {
+  &__button {
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    display: flex;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: none;
+    overflow: hidden;
+    align-items: center;
+    background: $color6;
+    padding: 0;
+    transform: translateY(-50%);
+    transition: background-color .3s ease-in, box-shadow .3s ease-in;
+    outline-color: $color2;
+    cursor: pointer;
+
+    svg {
+      display: flex;
+      height: 18px;
+      width: 10px;
+      stroke: $wc;
+      flex: 1 1 100%;
+      transition: fill .3s ease-in;
+      pointer-events: none;
+    }
+    &-left {
+      left: var(--offset-controller-hor);
+    }
+
+    &-right {
+      right:  var(--offset-controller-hor);
+    }
+    &[disabled] {
+      background: $disable-bg;
+      cursor: no-drop;
+      svg {
+        stroke: $disable-text;
+      }
+    }
+  }
+  &__slider {
+    &__bg{
+      position: fixed;
+      left: 0;
+      right: 0;
+      pointer-events: none;
+      width: 100%;
+      z-index: 155;
+      &-top {
+        top: 0;
+        height: 40vh;
+        background: linear-gradient(180deg, rgba(236, 234, 225, 0.95) 0%, rgba(236, 234, 225, 0) 100%);
+      }
+      &-bottom {
+        bottom: 0;
+        height: 15vh;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+      }
+    }
+  }
+  &-infoBox {
+    position: fixed;
+    top: 50%;
+    left: 100%;
+    grid-area: info-flat;
+    display: flex;
+    width: 300px;
+    flex: 0 1 auto;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 0 30px;
+    opacity: 0;
+    overflow: hidden;
+    transform: translate(0, -50%);
+    z-index: 999;
+    transition: transform 0.5s ease-in 0.3s, opacity 0.3s ease-in 0.1s, visibility 0.3s ease-in 0.4s;
+
+    // default change from js
+    pointer-events: none;
+    visibility: hidden;
+
+    &__title {
+      grid-area: title;
+      font-size: 18px;
+      line-height: 1.4em;
+      font-weight: 400;
+      color: $color1;
+      text-align: left;
+      text-transform: capitalize;
+    }
+    &__table {
+      width: 100%;
+      grid-area: table;
+    }
+    &__image {
+      grid-area: img;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      max-height: 220px;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      order: 1;
+      z-index: 2;
+      transition: opacity 0.6s cubic-bezier(0.41, 0.57, 0.26, 1);
+      img {
+        display: inline-block;
+        object-fit: contain;
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+    &__row {
+      display: flex;
+      font-size: 16px;
+      line-height: 1.3em;
+      color: $color1;
+      margin-bottom: 10px;
+      &:last-child {
+        margin: 0;
+      }
+    }
+    &__name {
+      display: flex;
+      flex: 1 1 80%;
+      text-transform: capitalize;
+      &:after {
+        content: "";
+        display: flex;
+        flex: 1 1 5%;
+        margin: 0 0.5ch;
+        border-bottom: 1px solid $border-color;
+      }
+    }
+    &__value {
+      flex: 1 0 20%;
+    }
+    &__close.s3d__close {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      height: 34px;
+      width: 34px;
+      grid-area: close;
+    }
+
+    &__link {
+      display: none;
+      grid-area: link;
+      align-items: center;
+      justify-content: center;
+      align-self: flex-end;
+      border: none;
+      background: $color5;
+      border-radius: 50px;
+      width: 100%;
+      height: 50px;
+      margin-top: 20px;
+      font-family: $default-font;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.3em;
+      color: $wc;
+      svg {
+        margin-left: 10px;
+        stroke: $color1;
+      }
+    }
+
+    &__general {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 20px;
+      background: #89B453;
+      text-transform: uppercase;
+      color: $wc;
+      .s3d-infoBox__link {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        background: transparent;
+        border: 1px solid $wc;
+        margin: 0;
+        svg {
+          margin: 0;
+          stroke: $wc;
+        }
+      }
+      .s3d-infoBox__row {
+        text-transform: uppercase;
+      }
+      .s3d__close:after, .s3d__close:before {
+        background: $wc;
+      }
+    }
+    &__floor, &__flat {
+      width: 100%;
+      padding: 35px;
+      background: $wc;
+      .s3d-infoBox__title {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__sold, &__sale-close , &__flatSold, &__infrastructure {
+      width: 100%;
+      padding: 20px;
+      background: #E23E28;
+      .s3d-infoBox__title {
+        color: $wc;
+        text-transform: uppercase;
+        margin: 0;
+      }
+      .s3d__close:after, .s3d__close:before {
+        background: $wc;
+      }
+    }
+  }
+}
+
