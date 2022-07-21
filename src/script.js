@@ -96,7 +96,7 @@ const colores = {
     colorVias: '#8995a4',
     colorTransito: '#222431',
     colorAlerta: '#C1403A',
-    colorArboles: '#c2c8d0',
+    colorArboles: '#d3ddc0',
     colorAndenes: '#c2c8d0',
     colorCielo: '#f5ffff',
     colorBruma: '#f5ffff',
@@ -107,9 +107,9 @@ const colores = {
     colorPoint: '#c7c7c7',
     colorPoint2: '#ffffff',
     //Colores version alterna
-    mainArboles: '#c2c8d0',
-    mainArbustos: '#84889f',
-    mainBarandas: '#84889f',
+    mainArboles: '#d3ddc0',
+    mainArbustos: '#a4b18c',
+    mainBarandas: '#ffffff',
     mainBbq: '#c18b8b',
     mainCarros: '#84889f',
     mainComunal: '#ffffff',//#f3f1e8
@@ -156,12 +156,17 @@ const text_arboles = textureLoader.load('texturas/arboles.webp'),
     text_vias_1 = textureLoader.load('texturas/vias_1.webp'),
     text_vias_2 = textureLoader.load('texturas/vias_2.webp'),
     text_disp_terreno = textureLoader.load('texturas/disp_terreno.jpg'),
-    text_mapa = textureLoader.load('texturas/seamless-grass.jpg')
+    text_mapa = textureLoader.load('texturas/seamless-grass.jpg'),
+    text_nube = textureLoader.load('texturas/nube.png')
 
 
-text_mapa.wrapS = THREE.RepeatWrapping;
-text_mapa.wrapT = THREE.RepeatWrapping;
-text_mapa.repeat.set(200, 200);
+text_mapa.wrapS = THREE.RepeatWrapping
+text_mapa.wrapT = THREE.RepeatWrapping
+text_mapa.repeat.set(200, 200)
+
+text_nube.wrapS = THREE.RepeatWrapping
+text_nube.wrapT = THREE.RepeatWrapping
+text_nube.repeat.set(10, 10)
 
 text_arboles.flipY = false
 text_arbustos.flipY = false
@@ -365,6 +370,7 @@ btnCambioEscena.addEventListener('click', event => {
     }
 })
 
+btnCambioEscena.click()
 const btnCercanias = document.getElementById('btnCercanias')
 btnCercanias.addEventListener('click', mostrarInfo)
 
@@ -1188,7 +1194,7 @@ scene.add(mapa)
  * Lights
  */
 //Ambient
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.75)
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.74)
 lucesFolder.add(ambientLight, 'intensity').min(0).max(1).step(0.001).name('Ambient')
 
 scene.add(ambientLight)
@@ -1223,7 +1229,7 @@ directionalLight.shadow.mapSize.width = 2048
 directionalLight.shadow.mapSize.height = 2048
 
 //PointLight
-const pointLight = new THREE.PointLight(colores.colorPoint, 0.4, 116, 2)
+const pointLight = new THREE.PointLight(colores.colorPoint, 0.2, 116, 2)
 
 pointLight.position.set(0, 13.01, 0)
 lucesFolder.add(pointLight.position, 'x').min(-25).max(25).step(0.01).name('point x')
@@ -1284,6 +1290,13 @@ piso.position.y = -0.01
 
 scene.add(piso)
 
+/**
+ * Nubes
+ */
+ const nubesGeo = new THREE.SphereGeometry( 130, 32, 16 );
+ const mat_nubes = new THREE.MeshBasicMaterial( { color: 0xffffff, side: THREE.DoubleSide, map: text_nube, transparent: true } );
+ const nubes = new THREE.Mesh( nubesGeo, mat_nubes );
+ scene.add( nubes );
 /**
  * Terreno
  */
@@ -1659,8 +1672,9 @@ effectComposer.addPass(renderPass)
     height: sizes.height
 })*/
 const saoPass = new SAOPass( scene, camera, false, true );
-//effectComposer.addPass(saoPass)
+effectComposer.addPass(saoPass)
 
+saoPass.params.output = SAOPass.OUTPUT.Beauty
 // Init gui Pass
 
 gui.add( saoPass.params, 'output', {
@@ -2261,6 +2275,8 @@ const tick = () => {
         hotspot.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
     }
 
+    //Animar nubes
+    nubes.rotation.z += 0.001;
 
 
     // Render

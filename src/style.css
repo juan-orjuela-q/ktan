@@ -563,7 +563,7 @@ html {
     transition: left .5s ease;
     height: 100%;
     overflow: auto;
-    background: var(--color1) url(https://chromastudio.co/sole/wp-content/uploads/2022/03/textura_sole.png) repeat center;
+    background: var(--color1)  repeat center;
     color: var(--color2);
     z-index: 99;
 }
