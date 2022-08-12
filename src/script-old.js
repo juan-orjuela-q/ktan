@@ -10,8 +10,10 @@ import gsap from 'gsap'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js'
+import { SAOPass } from 'three/examples/jsm/postprocessing/SAOPass.js'
+import Stats from 'three/examples/jsm/libs/stats.module'
 
-
+console.log(SAOPass)
 
 //Recorridos 360
 const modalTour = document.querySelector('#modal-tour'),
@@ -51,6 +53,8 @@ let mapaFolder = gui.addFolder('Mapa'),
 mapaFolder.close()
 lucesFolder.close()
 aptosFolder.close()
+coloresFolder.close()
+proyectoFolder.close()
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 // Scene
@@ -92,26 +96,26 @@ const colores = {
     colorVias: '#8995a4',
     colorTransito: '#222431',
     colorAlerta: '#C1403A',
-    colorArboles: '#c2c8d0',
+    colorArboles: '#d3ddc0',
     colorAndenes: '#c2c8d0',
-    colorCielo: '#ffffff',
-    colorBruma: '#ffffff',
+    colorCielo: '#f5ffff',
+    colorBruma: '#f5ffff',
     mascara_1: '#458376',
     mascara_2: '#C1403A',
     mascara_3: '#313c90',
-    colorTerreno: '#f0f0f0',
+    colorTerreno: '#eff4e6',
     colorPoint: '#c7c7c7',
     colorPoint2: '#ffffff',
     //Colores version alterna
-    mainArboles: '#c2c8d0',
-    mainArbustos: '#84889f',
-    mainBarandas: '#84889f',
+    mainArboles: '#d3ddc0',
+    mainArbustos: '#a4b18c',
+    mainBarandas: '#ffffff',
     mainBbq: '#c18b8b',
     mainCarros: '#84889f',
-    mainComunal: '#f3f1e8',
+    mainComunal: '#ffffff',//#f3f1e8
     mainJuegos: '#c18b8b',
     mainLuminarias: '#222431',
-    mainTorres: '#f3f1e8',
+    mainTorres: '#ffffff',//#f3f1e8
     mainTorresLineas: '#ffffff',
     mainUrbano: '#ffffff'
 }
@@ -121,16 +125,16 @@ const paletaMascaras = [colores.mascara_1, colores.mascara_2, colores.mascara_3]
 /**
  * Texturas
  */
-/*const environmentMap = cubeTextureLoader.load([
-    'env/px.png',
-    'env/nx.png',
-    'env/py.png',
-    'env/ny.png',
-    'env/pz.png',
-    'env/nz.png'
-])*/
+const environmentMap = cubeTextureLoader.load([
+    'env-3/px.png',
+    'env-3/nx.png',
+    'env-3/py.png',
+    'env-3/ny.png',
+    'env-3/pz.png',
+    'env-3/nz.png'
+])
 
-/*scene.background = environmentMap*/
+scene.background = environmentMap
 
 const text_arboles = textureLoader.load('texturas/arboles.webp'),
     text_arbustos = textureLoader.load('texturas/arbustos.webp'),
@@ -152,12 +156,21 @@ const text_arboles = textureLoader.load('texturas/arboles.webp'),
     text_vias_1 = textureLoader.load('texturas/vias_1.webp'),
     text_vias_2 = textureLoader.load('texturas/vias_2.webp'),
     text_disp_terreno = textureLoader.load('texturas/disp_terreno.jpg'),
-    text_mapa = textureLoader.load('texturas/seamless-grass.jpg')
+    text_mapa = textureLoader.load('texturas/seamless-grass.jpg'),
+    text_nube = textureLoader.load('texturas/nube.png'),
+    amb_torre_baja = textureLoader.load('texturas/textura_torre_baja.webp'),
+    amb_torre_sole_1 = textureLoader.load('texturas/textura_torre_sole_1.webp'),
+    amb_torre_sole_2 = textureLoader.load('texturas/textura_torre_sole_2.webp'),
+    amb_comunal = textureLoader.load('texturas/textura_comunal.webp')
 
 
-text_mapa.wrapS = THREE.RepeatWrapping;
-text_mapa.wrapT = THREE.RepeatWrapping;
-text_mapa.repeat.set(200, 200);
+text_mapa.wrapS = THREE.RepeatWrapping
+text_mapa.wrapT = THREE.RepeatWrapping
+text_mapa.repeat.set(200, 200)
+
+text_nube.wrapS = THREE.RepeatWrapping
+text_nube.wrapT = THREE.RepeatWrapping
+text_nube.repeat.set(10, 10)
 
 text_arboles.flipY = false
 text_arbustos.flipY = false
@@ -178,6 +191,11 @@ text_arbol_1.flipY = false
 text_arbol_2.flipY = false
 text_vias_1.flipY = false
 text_vias_2.flipY = false
+//Ambient
+amb_comunal.flipY = false
+amb_torre_baja.flipY = false
+amb_torre_sole_1.flipY = false
+amb_torre_sole_2.flipY = false
 //matcapTexture.flipY = false
 
 
@@ -190,13 +208,13 @@ const mat_arboles = new THREE.MeshBasicMaterial({ map: text_arboles }),
     mat_bbq = new THREE.MeshBasicMaterial({ map: text_bbq }),
     mat_carros_abajo = new THREE.MeshBasicMaterial({ map: text_carros_abajo }),
     mat_carros_arriba = new THREE.MeshBasicMaterial({ map: text_carros_arriba }),
-    mat_comunal = new THREE.MeshBasicMaterial({ map: text_comunal }),
+    mat_comunal = new THREE.MeshStandardMaterial({ color: '#ffffff', map: amb_comunal }),
     mat_juegos = new THREE.MeshBasicMaterial({ map: text_juegos }),
     mat_juegos_2 = new THREE.MeshBasicMaterial({ map: text_juegos_2 }),
     mat_luminarias = new THREE.MeshBasicMaterial({ map: text_luminarias }),
-    mat_torre_baja = new THREE.MeshBasicMaterial({ map: text_torre_baja }),
-    mat_torre_sole_1 = new THREE.MeshBasicMaterial({ map: text_torre_sole_1 }),
-    mat_torre_sole_2 = new THREE.MeshBasicMaterial({ map: text_torre_sole_2 }),
+    mat_torre_baja = new THREE.MeshBasicMaterial({ map: amb_torre_baja }),
+    mat_torre_sole_1 = new THREE.MeshBasicMaterial({ map: amb_torre_sole_1 }),
+    mat_torre_sole_2 = new THREE.MeshBasicMaterial({ map: amb_torre_sole_2 }),
     mat_urbano = new THREE.MeshBasicMaterial({ map: text_urbano })
 
 //Materiales alternos
@@ -210,7 +228,7 @@ const mat_arbolesAlt = new THREE.MeshStandardMaterial({ color: colores.mainArbol
     mat_luminariasAlt = new THREE.MeshStandardMaterial({ color: colores.mainLuminarias }),
     mat_torresAlt = new THREE.MeshStandardMaterial({ color: colores.mainTorres }),
     mat_urbanoAlt = new THREE.MeshStandardMaterial({ color: colores.mainUrbano, transparent: true, opacity: 0 }),
-    mat_torresLineas = new THREE.LineBasicMaterial({ color: colores.mainTorresLineas, linewidth: 1, transparent: true, opacity: .7 })
+    mat_torresLineas = new THREE.LineBasicMaterial({ color: colores.mainTorresLineas, linewidth: 1, transparent: true, opacity: 0 })
 //Materiales color
 const materialLinea = new THREE.LineBasicMaterial({ color: colores.contextoLineColor, linewidth: 1, transparent: true, opacity: .35 });
 
@@ -281,8 +299,10 @@ toogleGUI()
 window.addEventListener('keydown', (event) => {
     if (event.key === 'l') {
         toogleGUI()
-    }
+    } 
 })
+
+
 
 const formatoNumero = Intl.NumberFormat('de-DE')
 
@@ -359,6 +379,7 @@ btnCambioEscena.addEventListener('click', event => {
     }
 })
 
+btnCambioEscena.click()
 const btnCercanias = document.getElementById('btnCercanias')
 btnCercanias.addEventListener('click', mostrarInfo)
 
@@ -632,10 +653,11 @@ gltfLoader.load(
     }
 )
 gltfLoader.load(
-    'modelos/comunal.glb',
+    'modelos/n_comunal.glb',
     (gltf) => {
         gltf.scene.traverse((child) => {
-            child.material = mat_comunalAlt
+            child.material = mat_comunal
+            //child.material = mat_comunalAlt
             child.castShadow = true
         })
         gltf.scene.scale.set(0.05, 0.05, 0.05)
@@ -691,11 +713,11 @@ gltfLoader.load(
 )
 
 gltfLoader.load(
-    'modelos/torre_baja.glb',
+    'modelos/n_torre_baja.glb',
     (gltf) => {
         gltf.scene.traverse((child) => {
-            //child.material = mat_torre_baja
-            child.material = mat_torresAlt
+            child.material = mat_torre_baja
+            //child.material = mat_torresAlt
             child.castShadow = true
             
         })
@@ -713,11 +735,11 @@ gltfLoader.load(
 )
 
 gltfLoader.load(
-    'modelos/torre_sole_1.glb',
+    'modelos/n_torre_sole_1.glb',
     (gltf) => {
         gltf.scene.traverse((child) => {
-            //child.material = mat_torre_sole_1
-            child.material = mat_torresAlt
+            child.material = mat_torre_sole_1
+            //child.material = mat_torresAlt
             child.castShadow = true
             
         })
@@ -733,11 +755,11 @@ gltfLoader.load(
     }
 )
 gltfLoader.load(
-    'modelos/torre_sole_2.glb',
+    'modelos/n_torre_sole_2.glb',
     (gltf) => {
         gltf.scene.traverse((child) => {
-            //child.material = mat_torre_sole_2
-            child.material = mat_torresAlt
+            child.material = mat_torre_sole_2
+            //child.material = mat_torresAlt
             child.castShadow = true
             
         })
@@ -1181,7 +1203,7 @@ scene.add(mapa)
  * Lights
  */
 //Ambient
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.7)
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.74)
 lucesFolder.add(ambientLight, 'intensity').min(0).max(1).step(0.001).name('Ambient')
 
 scene.add(ambientLight)
@@ -1189,7 +1211,7 @@ scene.add(ambientLight)
 //Directional
 const directionalLight = new THREE.DirectionalLight(colores.colorPoint2, 0.1)
 
-directionalLight.position.set(19, 16, 9)
+directionalLight.position.set(-20.42, 25.76, 20.14)
 
 lucesFolder.add(directionalLight.position, 'x').min(-25).max(250).step(0.01).name('Directional x')
 lucesFolder.add(directionalLight.position, 'y').min(0.1).max(250).step(0.01).name('Directional y')
@@ -1207,16 +1229,16 @@ directionalLight.shadow.camera.left = -10
 //directionalLight.shadow.radius = 20
 
 const directionalLightCameraHelper = new THREE.CameraHelper(directionalLight.shadow.camera)
-scene.add(directionalLightCameraHelper)
+//scene.add(directionalLightCameraHelper)
 
-directionalLightCameraHelper.visible = false
+directionalLightCameraHelper.visible = true
 
 directionalLight.castShadow = true
 directionalLight.shadow.mapSize.width = 2048
 directionalLight.shadow.mapSize.height = 2048
 
 //PointLight
-const pointLight = new THREE.PointLight(colores.colorPoint, 0.4, 116, 2)
+const pointLight = new THREE.PointLight(colores.colorPoint, 0.2, 116, 2)
 
 pointLight.position.set(0, 13.01, 0)
 lucesFolder.add(pointLight.position, 'x').min(-25).max(25).step(0.01).name('point x')
@@ -1232,7 +1254,7 @@ lucesFolder
     })
     .name('colorPoint')
 
-const pointLight2 = new THREE.PointLight(colores.colorPoint2, 0.6, 50, 2)
+const pointLight2 = new THREE.PointLight(colores.colorPoint2, 0.7, 50, 2)
 /*pointLight2.castShadow = true
 pointLight2.shadow.mapSize.width = 2048
 pointLight2.shadow.mapSize.height = 2048*/
@@ -1277,6 +1299,13 @@ piso.position.y = -0.01
 
 scene.add(piso)
 
+/**
+ * Nubes
+ */
+ const nubesGeo = new THREE.SphereGeometry( 130, 32, 16 );
+ const mat_nubes = new THREE.MeshBasicMaterial( { color: 0xffffff, side: THREE.DoubleSide, map: text_nube, transparent: true } );
+ const nubes = new THREE.Mesh( nubesGeo, mat_nubes );
+ scene.add( nubes );
 /**
  * Terreno
  */
@@ -1329,7 +1358,7 @@ const camera = new THREE.PerspectiveCamera(55, sizes.width / sizes.height, 0.01,
 camera.position.set(4.38, 2.33, 4.91)
 scene.add(camera)
 scene.add(pointLight)
-camera.add(directionalLight)
+scene.add(directionalLight)
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.target.set(0, 0.75, 0)
@@ -1445,9 +1474,9 @@ const bolaHelper = new THREE.Mesh(
 bolaHelper.position.set(1, 100, 3)
 
 scene.add(bolaHelper)
-gui.add(bolaHelper.position, 'x', -70, 70, 0.01)
-gui.add(bolaHelper.position, 'y', -70, 70, 0.01)
-gui.add(bolaHelper.position, 'z', -70, 70, 0.01)
+gui.add(bolaHelper.position, 'x', -70, 70, 0.01).name('Helper X')
+gui.add(bolaHelper.position, 'y', -70, 70, 0.01).name('Helper Y')
+gui.add(bolaHelper.position, 'z', -70, 70, 0.01).name('Helper Z')
 
 
 /**
@@ -1635,7 +1664,7 @@ readTextFile("inventario/inventario.json", function (text) {
 /**
  * Post processing
  */
-/*const effectComposer = new EffectComposer(renderer)
+const effectComposer = new EffectComposer(renderer)
 effectComposer.setSize(sizes.width, sizes.height)
 effectComposer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
@@ -1644,13 +1673,54 @@ effectComposer.addPass(renderPass)
 
 
 
-const bokehPass = new BokehPass(scene, camera, {
+/*const bokehPass = new BokehPass(scene, camera, {
     focus: 12,
     aperture: 0.0001,
     maxblur: 0.0075,
     width: sizes.width,
     height: sizes.height
 })*/
+const saoPass = new SAOPass( scene, camera, false, true );
+effectComposer.addPass(saoPass)
+
+saoPass.params.output = SAOPass.OUTPUT.Beauty
+// Init gui Pass
+
+gui.add( saoPass.params, 'output', {
+    'Beauty': SAOPass.OUTPUT.Beauty,
+    'Beauty+SAO': SAOPass.OUTPUT.Default,
+    'SAO': SAOPass.OUTPUT.SAO,
+    'Depth': SAOPass.OUTPUT.Depth,
+    'Normal': SAOPass.OUTPUT.Normal
+} ).onChange( function ( value ) {
+
+    saoPass.params.output = parseInt( value );
+
+} );
+
+saoPass.params.saoIntensity = 0.003
+saoPass.params.saoScale = 1.84
+
+saoPass.params.saoKernelRadius = 68.31
+saoPass.params.saoMinResolution = 0
+saoPass.params.saoBlur = true
+saoPass.params.saoBlurRadius = 5//5.94
+saoPass.params.saoBlurStdDev = 89.3577
+saoPass.params.saoBlurDepthCutoff = 0.0001
+
+
+gui.add( saoPass.params, 'saoBias', 0, 0.1, 0.01 );
+gui.add( saoPass.params, 'saoIntensity', 0, 1, 0.001 );
+gui.add( saoPass.params, 'saoScale', 0, 20, 0.01 );
+gui.add( saoPass.params, 'saoKernelRadius', 1, 100 );
+gui.add( saoPass.params, 'saoMinResolution', 0, 1, 0.0001 );
+gui.add( saoPass.params, 'saoBlur' );
+gui.add( saoPass.params, 'saoBlurRadius', 0, 10, 0.01 );
+gui.add( saoPass.params, 'saoBlurStdDev', 0.5, 150, 0.0001 );
+gui.add( saoPass.params, 'saoBlurDepthCutoff', 0.0, 0.1, 0.0001 );
+
+const stats = Stats()
+document.body.appendChild(stats.dom)
 //COGNIS
 //Mostrar máscaras según json
 const btnFiltrar = document.querySelector('#filtrar')
@@ -2214,12 +2284,14 @@ const tick = () => {
         hotspot.element.style.transform = `translateX(${translateX}px) translateY(${translateY}px)`
     }
 
+    //Animar nubes
+    nubes.rotation.z += 0.001;
 
 
     // Render
-    renderer.render(scene, camera)
-    //effectComposer.render()
-
+    //renderer.render(scene, camera)
+    effectComposer.render()
+    stats.update()
     //console.log(camera.position)
     // Call tick again on the next frame
     window.requestAnimationFrame(tick)
