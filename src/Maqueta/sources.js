@@ -223,5 +223,105 @@ export default [
         type: 'gltfModel',
         path: 'modelos/proyecto/torre_sole_2.glb'
     },
+    //Modelos contexto
+    {
+        name: 'modelo_arbol_1',
+        type: 'gltfModel',
+        path: 'modelos/contexto/arbol_1.glb'
+    },
+    {
+        name: 'modelo_arbol_2',
+        type: 'gltfModel',
+        path: 'modelos/contexto/arbol_2.glb'
+    },
+    //Modelos vecinos
+    {
+        name: 'modelo_comercio',
+        type: 'gltfModel',
+        path: 'modelos/vecinos/comercio.glb'
+    },
+    {
+        name: 'modelo_proyecto_vecino',
+        type: 'gltfModel',
+        path: 'modelos/vecinos/proyecto_vecino.glb'
+    },
+    {
+        name: 'modelo_vecinos',
+        type: 'gltfModel',
+        path: 'modelos/vecinos/vecinos.glb'
+    },
+    //Patrones
+    {
+        name: 'asfaltDark',
+        type: 'texture',
+        path: 'texturas/patrones/asfalt-dark.jpg'
+    },
+    {
+        name: 'asfaltLight',
+        type: 'texture',
+        path: 'texturas/patrones/asfalt-light.png'
+    },
+    {
+        name: 'bedgeGrunge',
+        type: 'texture',
+        path: 'texturas/patrones/bedge-grunge.png'
+    },
+    {
+        name: 'beigePaper',
+        type: 'texture',
+        path: 'texturas/patrones/beige-paper.png'
+    },
+    {
+        name: 'blackFelt',
+        type: 'texture',
+        path: 'texturas/patrones/black-felt.png'
+    },
+    {
+        name: 'blackTwill',
+        type: 'texture',
+        path: 'texturas/patrones/black-twill.png'
+    },
+    {
+        name: 'boPlay',
+        type: 'texture',
+        path: 'texturas/patrones/bo-play.png'
+    },
+    {
+        name: 'cardboard',
+        type: 'texture',
+        path: 'texturas/patrones/cardboard.jpg'
+    },
+    {
+        name: 'cardboard2',
+        type: 'texture',
+        path: 'texturas/patrones/cardboard2.jpg'
+    },
+    {
+        name: 'concreteWall',
+        type: 'texture',
+        path: 'texturas/patrones/concrete-wall.png'
+    },
+    {
+        name: 'fabricLight',
+        type: 'texture',
+        path: 'texturas/patrones/fabric-light.png'
+    },
+    {
+        name: 'darkBrickWall',
+        type: 'texture',
+        path: 'texturas/patrones/dark-brick-wall.jpg'
+    },
+    {
+        name: 'leather',
+        type: 'texture',
+        path: 'texturas/patrones/leather.jpg'
+    },
+    {
+        name: 'cartographer',
+        type: 'texture',
+        path: 'texturas/patrones/cartographer.jpg'
+    },
+
+
 ]
 

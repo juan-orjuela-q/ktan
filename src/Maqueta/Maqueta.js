@@ -5,11 +5,12 @@ import Camara from './Camara.js'
 import Renderer from './Renderer.js'
 import Tamanos from "./Utils/Tamanos.js"
 import Tiempo from "./Utils/Tiempo.js"
-import Colores from "./Utils/Colores.js"
+import Colores from "./Mundo/Skins/Skin_2/Colores.js"
 import Mundo from './Mundo/Mundo.js'
 import Recursos from './Utils/Recursos.js'
 import sources from './sources.js'
 import Debug from './Utils/Debug.js'
+import Materiales from './Mundo/Skins/Skin_2/Materiales.js'
 
 
 let instancia = null
@@ -40,8 +41,9 @@ export default class Maqueta
         this.renderer = new Renderer()
         this.recursos = new Recursos(sources)
         this.mundo = new Mundo()
+        this.materiales = new Materiales()
         
-
+        
         this.tamanos.on('redimensionar', () => {
             this.redimensionar()
         })
@@ -59,5 +61,6 @@ export default class Maqueta
     actualizar() {
         this.camara.actualizar()
         this.renderer.actualizar()
+        //this.mundo.rotarNubes()
     }
 }

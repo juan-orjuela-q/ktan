@@ -1,3 +1,4 @@
+import Mundo from "../Mundo/Mundo"
 import EventEmitter from "./EventEmitter"
 
 export default class Tiempo extends EventEmitter
@@ -16,6 +17,7 @@ export default class Tiempo extends EventEmitter
         this.current = this.start
         this.elapsed = 0
         this.delta = 16
+        
 
         window.requestAnimationFrame(() => {
             this.tick()
