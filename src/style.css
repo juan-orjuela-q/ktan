@@ -216,47 +216,47 @@ img {
     border-radius: 100%;
 }
 
-.hw-info .hotspot .label:before {
+.hw-cercanias .hotspot .label:before {
     background: var(--color1);
 }
 
-.hw-info .hotspot .texto {
+.hw-cercanias .hotspot .texto {
     display: initial;
     pointer-events: none;
     opacity: 0;
     transition: opacity .3s ease;
 }
 
-.hw-info .hotspot.visible .texto {
+.hw-cercanias .hotspot.visible .texto {
     display: initial;
     opacity: 1;
 }
 
-.hw-info {
+.hw-cercanias {
     opacity: 0;
     transition: opacity .5s ease;
 }
 
-.hw-info.activo {
+.hw-cercanias.activo {
     opacity: 1;
 }
 
-.hw-info .hotspot {
+.hw-cercanias .hotspot {
     pointer-events: none !important;
 }
 
-.hw-info .hotspot .label, .hw-info .hotspot .texto, .hw-info .hotspot .texto:after {
+.hw-cercanias .hotspot .label, .hw-cercanias .hotspot .texto, .hw-cercanias .hotspot .texto:after {
     cursor: initial;
     border-radius: 0;
 }
 
-.hw-info .hotspot .texto .distancia {
+.hw-cercanias .hotspot .texto .distancia {
     border-top: 1px solid var(--color2);
     margin-top: 4px;
     padding-top: 4px;
 }
 
-.hw-info .hotspot .texto .distancia span {
+.hw-cercanias .hotspot .texto .distancia span {
     display: block;
     text-align: left;
     padding-left: 28px;
@@ -265,7 +265,7 @@ img {
     position: relative;
 }
 
-.hw-info .hotspot .texto .distancia span:before {
+.hw-cercanias .hotspot .texto .distancia span:before {
     content: '';
     height: 24px;
     width: 24px;
@@ -277,15 +277,15 @@ img {
     position: absolute;
 }
 
-.hw-info .hotspot .texto .distancia .pie:before {
+.hw-cercanias .hotspot .texto .distancia .pie:before {
     background-image: url(https://chromastudio.co/sole/wp-content/uploads/2022/04/ico-pie.svg);
 }
 
-.hw-info .hotspot .texto .distancia .bici:before {
+.hw-cercanias .hotspot .texto .distancia .bici:before {
     background-image: url(https://chromastudio.co/sole/wp-content/uploads/2022/04/ico-bici.svg);
 }
 
-.hw-info .hotspot .texto .distancia .carro:before {
+.hw-cercanias .hotspot .texto .distancia .carro:before {
     background-image: url(https://chromastudio.co/sole/wp-content/uploads/2022/04/ico-carro.svg);
 }
 

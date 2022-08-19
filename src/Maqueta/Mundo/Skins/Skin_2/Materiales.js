@@ -212,7 +212,7 @@ export default class Materiales {
         texturaNubes.repeat.y = 10
 
         this.materialesContexto.nubes = new THREE.MeshBasicMaterial({
-            color: 0xff0000,
+            color: this.colores.coloresMundo.colorNubes,
             side: THREE.DoubleSide,
             map: texturaNubes,
             transparent: true

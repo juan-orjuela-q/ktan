@@ -32,8 +32,9 @@ export default class Camara {
     }
 
     redimensionar() {
-        this.instancia.aspecto = this.tamanos.ancho / this.tamanos.alto
+        this.instancia.aspect = this.tamanos.ancho / this.tamanos.alto
         this.instancia.updateProjectionMatrix()
+        
     }
 
     actualizar() {

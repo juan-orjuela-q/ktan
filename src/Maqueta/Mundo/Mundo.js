@@ -270,6 +270,13 @@ export default class Mundo {
                     this.materiales.materialesProyecto.comunal.color.set(this.colores.coloresMundo.colorProyecto)
                 })
                 .name('Proyecto')
+
+                this.debugColores
+                .addColor(this.colores.coloresMundo, 'colorNubes')
+                .onChange(() => {
+                    this.materiales.materialesContexto.nubes.color.set(this.colores.coloresMundo.colorNubes)
+                })
+                .name('Nubes')
         }
     }
 } 

@@ -1,6 +1,6 @@
 //Librerias
 import * as dat from 'lil-gui'
-import Stats from 'three/examples/jsm/libs/stats.module'
+
 
 export default class Debug
 {

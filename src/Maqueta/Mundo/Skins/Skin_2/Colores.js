@@ -32,6 +32,7 @@ export default class Colores
             mascara_2: '#C1403A',
             mascara_3: '#313c90',
             colorTerreno: '#dbdbdb',
+            colorNubes: '#dbdbdb',
             //Colores version alterna
             colorBarandas: '#ffffff',
             colorBbq: '#84889f',
