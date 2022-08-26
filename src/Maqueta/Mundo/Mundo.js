@@ -13,6 +13,8 @@ export default class Mundo {
         this.escena = this.maqueta.escena
         this.colores = this.maqueta.colores
         this.recursos = this.maqueta.recursos
+        this.escalaProyecto = this.maqueta.tamanos.escalaProyecto
+        this.posicionProyecto = this.maqueta.tamanos.posicionProyecto
         this.materiales = new Materiales()
         this.mapa = {}
         this.debug = this.maqueta.debug
@@ -31,10 +33,11 @@ export default class Mundo {
         this.grupoEdificios = new THREE.Group()
         this.grupoArboles = new THREE.Group()
         this.grupoProyecto = new THREE.Group()
+        this.mascarasProyecto = new THREE.Group()
 
         //this.crearHelper()
 
-        
+
 
         // Esperar que cargue Recursos
         this.recursos.on('cargado', () => {
@@ -44,6 +47,7 @@ export default class Mundo {
             this.crearMapa()
             this.crearVegetacion()
             this.crearModelos()
+            this.crearMascaras()
             this.crearDebug()
             this.ambiente = new Ambiente()
         })
@@ -86,8 +90,28 @@ export default class Mundo {
         const nubesGeo = new THREE.SphereGeometry(130, 32, 16)
         this.nubes = new THREE.Mesh(nubesGeo, this.materiales.materialesContexto.nubes)
         this.escena.add(this.nubes);
+
+        //Plataforma
+        // const plataforma = new THREE.Mesh(
+        //     new THREE.BoxGeometry(15, 7.5, 0.05),
+        //     this.materiales.materialesContexto.andenes
+        // )
+        // plataforma.rotation.x = - Math.PI * 0.5
+        // plataforma.position.y = 0.0025
+        // plataforma.position.z = -2
+        // plataforma.receiveShadow = true
+        //this.escena.add(plataforma)
+        //Satelital
+        // const satelital = new THREE.Mesh(
+        //     new THREE.PlaneGeometry(160, 90, 60, 60),
+        //     this.materiales.materialesContexto.satelital
+        // )
+        // satelital.rotation.x = - Math.PI * 0.5
+        // satelital.position.y = 0.0025
+        // satelital.receiveShadow = true
+        //this.escena.add(satelital)
     }
-    rotarNubes(){
+    rotarNubes() {
         this.nubes.rotation.z += 0.001
     }
     crearMapa() {
@@ -147,7 +171,7 @@ export default class Mundo {
 
         //Agregar grupo 1
         this.vegetacion.vegetacionModelo1.traverse((child) => {
-            child.material = this.materiales.materialesContexto.arbol1
+            child.material = this.materiales.materialesProyecto.arboles
             child.castShadow = true
         })
         for (let p = 0; p < posicionArboles.length; p++) {
@@ -165,7 +189,7 @@ export default class Mundo {
         this.escena.add(this.grupoArboles)
         //Agregar grupo 2
         this.vegetacion.vegetacionModelo2.traverse((child) => {
-            child.material = this.materiales.materialesContexto.arbol2
+            child.material = this.materiales.materialesProyecto.arboles
             child.castShadow = true
         })
         for (let p = 0; p < posicionArboles2.length; p++) {
@@ -194,8 +218,8 @@ export default class Mundo {
         this.arbustos = new Modelo(this.recursos.items.modelo_arbustos, this.materiales.materialesProyecto.arbustos, this.grupoProyecto)
         this.barandas = new Modelo(this.recursos.items.modelo_barandas, this.materiales.materialesProyecto.barandas, this.grupoProyecto)
         this.bbq = new Modelo(this.recursos.items.modelo_bbq, this.materiales.materialesProyecto.bbq, this.grupoProyecto)
-        this.carros_abajo = new Modelo(this.recursos.items.modelo_carros_abajo, this.materiales.materialesProyecto.carros_abajo, this.grupoProyecto)
-        this.carros_arriba = new Modelo(this.recursos.items.modelo_carros_arriba, this.materiales.materialesProyecto.carros_arriba, this.grupoProyecto)
+        this.carros_abajo = new Modelo(this.recursos.items.modelo_carros_abajo, this.materiales.materialesContexto.carros, this.grupoProyecto)
+        this.carros_arriba = new Modelo(this.recursos.items.modelo_carros_arriba, this.materiales.materialesContexto.carros, this.grupoProyecto)
         this.comunal = new Modelo(this.recursos.items.modelo_comunal, this.materiales.materialesProyecto.comunal, this.grupoProyecto, true)
 
         this.juegos = new Modelo(this.recursos.items.modelo_juegos, this.materiales.materialesProyecto.juegos, this.grupoProyecto)
@@ -207,17 +231,22 @@ export default class Mundo {
         this.vecinos = new Modelo(this.recursos.items.modelo_vecinos, this.materiales.materialesProyecto.vecinos, this.grupoProyecto, true)
 
         //Configurar modelos
-        this.grupoProyecto.scale.set(0.05, 0.05, 0.05)
-        this.grupoProyecto.position.set(2.84, 0.025, -5.67)
+        this.grupoProyecto.scale.set(this.escalaProyecto.x, this.escalaProyecto.y, this.escalaProyecto.z)
+        this.grupoProyecto.position.set(this.posicionProyecto.x, this.posicionProyecto.y, this.posicionProyecto.z)
         if (this.debug.active) {
             this.debugProyecto.add(this.grupoProyecto.position, 'x').min(-10).max(10).step(0.01).name('Proyecto x')
             this.debugProyecto.add(this.grupoProyecto.position, 'y').min(-1).max(1).step(0.001).name('Proyecto y')
             this.debugProyecto.add(this.grupoProyecto.position, 'z').min(-10).max(10).step(0.01).name('Proyecto z')
 
         }
-
         this.escena.add(this.grupoProyecto)
     }
+    crearMascaras() {
+        this.mascarasProyecto.scale.set(this.escalaProyecto.x, this.escalaProyecto.y, this.escalaProyecto.z)
+        this.mascarasProyecto.position.set(this.posicionProyecto.x, this.posicionProyecto.y, this.posicionProyecto.z)
+        this.escena.add(this.mascarasProyecto)
+    }
+
     crearDebug() {
         if (this.debug.active) {
 
@@ -261,7 +290,7 @@ export default class Mundo {
                 })
                 .name('Árboles')
 
-                this.debugColores
+            this.debugColores
                 .addColor(this.colores.coloresMundo, 'colorProyecto')
                 .onChange(() => {
                     this.materiales.materialesProyecto.torre_baja.color.set(this.colores.coloresMundo.colorProyecto)
@@ -271,12 +300,19 @@ export default class Mundo {
                 })
                 .name('Proyecto')
 
-                this.debugColores
+            this.debugColores
                 .addColor(this.colores.coloresMundo, 'colorNubes')
                 .onChange(() => {
                     this.materiales.materialesContexto.nubes.color.set(this.colores.coloresMundo.colorNubes)
                 })
                 .name('Nubes')
+
+            this.debugColores
+                .addColor(this.colores.coloresMundo, 'colorCarros')
+                .onChange(() => {
+                    this.materiales.materialesContexto.carros.color.set(this.colores.coloresMundo.colorCarros)
+                })
+                .name('Carros')
         }
     }
 } 

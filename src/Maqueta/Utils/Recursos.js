@@ -79,6 +79,29 @@ export default class Recursos extends EventEmitter
                     }
                 )
             }
+            else if(source.type === 'json')
+            {
+                function readTextFile(file, callback) {
+                    var rawFile = new XMLHttpRequest();
+                    rawFile.overrideMimeType("application/json");
+                    rawFile.open("GET", file, true);
+                    rawFile.onreadystatechange = function () {
+                        if (rawFile.readyState === 4 && rawFile.status == "200") {
+                            callback(rawFile.responseText);
+                        }
+                    }
+                    rawFile.send(null);
+                }
+
+                readTextFile(
+                    source.path,
+                    (file) =>
+                    {
+                        this.sourceLoaded(source, JSON.parse(file))
+                    }
+                )
+                
+            }
         }
     }
 

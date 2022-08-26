@@ -126,6 +126,11 @@ export default [
         type: 'texture',
         path: 'texturas/contexto/nubes.png'
     },
+    {
+        name: 'satelital',
+        type: 'texture',
+        path: 'mapa/satelital.jpg'
+    },
     //SVG Mapa
     {
         name: 'svg_andenes',
@@ -320,6 +325,17 @@ export default [
         name: 'cartographer',
         type: 'texture',
         path: 'texturas/patrones/cartographer.jpg'
+    },
+    //Inventario
+    {
+        name: 'mascarasInventario',
+        type: 'gltfModel',
+        path: 'modelos/inventario/torre1_x01.glb'
+    },
+    {
+        name: 'inventario',
+        type: 'json',
+        path: 'inventario/inventario.json'
     },
 
 

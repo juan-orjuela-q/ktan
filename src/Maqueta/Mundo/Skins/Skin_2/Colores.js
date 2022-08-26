@@ -14,6 +14,16 @@ export default class Colores
             point: '#FFFFFF',
             directional: '#FFFFFF'
         },
+        this.mascaras = {
+            mascara1: '#222431',
+            mascara2: '#F9E2D0',
+            mascara3: '#C1403A',
+            mascara4: '#458376',
+            mascara5: '#313c90',
+            mascaraHover: '#ffffff',
+            mascaraClick: '#ffffff',
+            mascaraLinea: this.paleta.color1
+        }
         this.coloresMundo = {
             blanco: '#FFFFFF',
             colorAmbiente: '#FFFFFF',
@@ -24,13 +34,10 @@ export default class Colores
             colorVias: '#f1f2f8',
             colorTransito: '#222431',
             colorAlerta: '#C1403A',
-            colorArboles: '#dbdbdb',//#d3ddc0
+            colorArboles: '#ffffff',//#d3ddc0
             colorAndenes: '#dfd8c8',
             colorCielo: '#f5f3ea',
             colorBruma: '#f2efe8',
-            mascara_1: '#458376',
-            mascara_2: '#C1403A',
-            mascara_3: '#313c90',
             colorTerreno: '#dbdbdb',
             colorNubes: '#dbdbdb',
             //Colores version alterna

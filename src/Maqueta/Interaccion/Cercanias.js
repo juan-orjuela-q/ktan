@@ -9,10 +9,6 @@ export default class Cercanias {
         this.camara = this.maqueta.camara.instancia
         this.controles = this.maqueta.camara.controles
         this.hotspots = new Hotspots()
-
-
-
-
         this.crearSelectores()
         this.mostrarCercanias()
     }

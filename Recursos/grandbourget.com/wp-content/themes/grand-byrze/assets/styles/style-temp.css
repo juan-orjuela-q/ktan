@@ -1,7 +1,0 @@
-.btn-top.js-btn-top{display:none;}
-#bingc-passive div.bingc-passive-overlay a.bingc-powered-by,#bingc-active a.bingc-powered-by{display:none;}#bingc-active{left:0px!important;}#bingc-phone-button{bottom: 25px!important;right:1%!important;}@media(max-width:1024px){#bingc-phone-button{bottom:20px!important;right:0%!important;transition:all 0.5s linear 0.0s;}}
-
-.home_h1 {
-	position: absolute;
-    opacity: 0;
-}

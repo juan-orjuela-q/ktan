@@ -26,7 +26,8 @@ export default class Materiales {
         const texturaAndenes = this.recursos.items.darkBrickWall
         texturaAndenes.wrapS = THREE.RepeatWrapping
         texturaAndenes.wrapT = THREE.RepeatWrapping
-        texturaAndenes.repeat.set(2, 2)
+        //texturaAndenes.repeat.set(2, 2)
+        texturaAndenes.repeat.set(20, 20)
 
         texturaAndenes.rotation = Math.PI * 1.25
 
@@ -58,20 +59,21 @@ export default class Materiales {
         })
 
         this.materialesProyecto.comunal = new THREE.MeshStandardMaterial({
-           // map: this.recursos.items.textura_comunal,
+            //map: this.recursos.items.textura_comunal,
            color: this.colores.coloresMundo.colorProyecto,
            map: texturaProyecto
         })
 
-        this.materialesProyecto.arboles = new THREE.MeshStandardMaterial({
+        this.materialesProyecto.arboles = new THREE.MeshBasicMaterial({
             //map: this.recursos.items.textura_arboles,
-            map: texturaArboles,
+            //map: texturaArboles,
+            
             color: this.colores.coloresMundo.colorArboles
         })
 
-        this.materialesProyecto.arbustos = new THREE.MeshStandardMaterial({
+        this.materialesProyecto.arbustos = new THREE.MeshBasicMaterial({
             //map: this.recursos.items.textura_arbustos,
-            map: texturaArboles,
+            //map: texturaArboles,
             color: this.colores.coloresMundo.colorArboles
         })
 
@@ -87,11 +89,11 @@ export default class Materiales {
             color: this.colores.coloresMundo.colorBbq
         })
 
-        this.materialesProyecto.carros_abajo = new THREE.MeshStandardMaterial({
+        this.materialesContexto.carros = new THREE.MeshStandardMaterial({
             //map: this.recursos.items.textura_carros_abajo,
             color: this.colores.coloresMundo.colorCarros
         })
-        this.materialesProyecto.carros_arriba = new THREE.MeshStandardMaterial({
+        this.materialesContexto.carros = new THREE.MeshStandardMaterial({
             //map: this.recursos.items.textura_carros_arriba,
             color: this.colores.coloresMundo.colorCarros
         })
@@ -112,9 +114,6 @@ export default class Materiales {
             color: this.colores.coloresMundo.colorLuminarias
         })
         
-
-        
-
         this.materialesProyecto.vecinos = new THREE.MeshStandardMaterial({
             color: this.colores.coloresMundo.colorEdificios,
             map: texturaArboles,
@@ -123,6 +122,20 @@ export default class Materiales {
             //polygonOffset: true,
             //polygonOffsetFactor: 1,
             //polygonOffsetUnits: 1
+        })
+
+        this.materialesProyecto.mascaras = new THREE.MeshBasicMaterial({
+            color: this.colores.mascaras.mascara1,
+            transparent: true,
+            opacity: .5
+        })
+        this.materialesProyecto.mascaraHover = new THREE.MeshBasicMaterial({
+            color: this.colores.mascaras.mascaraHover,
+            transparent: true,
+            opacity: .5
+        })
+        this.materialesProyecto.mascaraClick = new THREE.MeshBasicMaterial({
+            color: this.colores.mascaras.mascaraClick
         })
 
         //Materiales contexto
@@ -194,8 +207,9 @@ export default class Materiales {
         })
         //Arboles
 
-        this.materialesContexto.arbol1 = new THREE.MeshStandardMaterial({
-            map: texturaArboles,
+        this.materialesContexto.arbol1 = new THREE.MeshBasicMaterial({
+            //map: texturaArboles,
+            //wireframe: true,
             color: this.colores.coloresMundo.colorArboles,
 
         })
@@ -216,7 +230,13 @@ export default class Materiales {
             side: THREE.DoubleSide,
             map: texturaNubes,
             transparent: true
-        });
+        })
+        //Satelital
+        const texturaSatelital = this.recursos.items.satelital
+
+        this.materialesContexto.satelital = new THREE.MeshStandardMaterial({
+            map: texturaSatelital
+        })
 
 
     }
