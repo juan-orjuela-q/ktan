@@ -762,9 +762,12 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     flex-direction: column;
     top: 95px;
     right: 30px;
-    text-align: right
+    text-align: right;
+    transition: transform .5s ease;
 }
-
+#menuflotante.ocultar {
+    transform: translateX(150%)
+}
 #menuflotante a {
     text-decoration: none;
     color: var(--color1);
@@ -804,7 +807,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     right: 0;
     top: 0;
     height: 100%;
-    background: white;
+    background: rgba(255, 255, 255, .95);
     border-left: 1px solid #E6E6E6;
     z-index: 99;
     box-sizing: border-box;

@@ -8,12 +8,16 @@ export default class Inventario {
         this.maqueta = new Maqueta()
         this.escena = this.maqueta.escena
         this.recursos = this.maqueta.recursos
+        
         this.mascarasProyecto = this.maqueta.mundo.mascarasProyecto
-        this.inventario
+        this.btnFiltrar = document.getElementById('filtrar')
+        
+        
         this.tablaResultados = document.querySelector('#resultados tbody')
         this.formatoNumero = Intl.NumberFormat('de-DE')
 
         this.recursos.on('cargado', () => {
+            this.inventario = this.recursos.items.inventario
             this.cargarMascaras()
         })
     }
@@ -51,12 +55,15 @@ export default class Inventario {
 
         }
         this.mascarasProyecto.add(this.recursos.items.mascarasInventario.scene)
-        this.consultar()
+        this.btnFiltrar.addEventListener('click', ()=> {this.consultar(event, this.inventario)}, false)
     }
-
-    consultar() {
+   
+    consultar(e, inventario) {
+        e.preventDefault()
+        e.stopPropagation()
+        
         //Consultar json
-        for (const unidad of this.recursos.items.inventario) {
+        for (const unidad of inventario) {
             //Prender los aptos del JSON
             this.mascarasProyecto.traverse(child => {
                 if (child.type === "Mesh") {

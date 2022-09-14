@@ -3,7 +3,8 @@ import EventEmitter from "./EventEmitter"
 export default class Tamanos extends EventEmitter {
     constructor() {
         super()
-        this.ancho = window.innerWidth
+        this.anchoModal = 0
+        this.ancho = window.innerWidth - this.anchoModal
         this.alto = window.innerHeight
         this.pixelRatio = Math.min(window.devicePixelRatio, 2)
         this.escalaProyecto = {

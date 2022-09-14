@@ -300,6 +300,7 @@ export default class Maqueta {
             if (child.type === "Mesh") {
                 child.material = this.materiales.materialesProyecto.mascaras
                 child.userData.activo = false
+                //child.visible = false
             }
         })
 
@@ -316,6 +317,19 @@ export default class Maqueta {
                 },
                 onComplete: function () {
                     controles.enabled = true;
+                }
+            })
+
+            gsap.to(this.camara.instancia.position, {
+                duration: 1,
+                x: this.camara.instancia.position.x,
+                y: this.camara.instancia.position.y,
+                z: this.camara.instancia.position.z * 1.5,
+                onUpdate: function () {
+                    controles.update()
+                },
+                onComplete: function () {
+                    controles.enabled = true
                 }
             })
         }
