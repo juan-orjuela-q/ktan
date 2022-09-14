@@ -91,14 +91,14 @@ export default class Maqueta {
             this.canvas.addEventListener('click', () => {
                 if (this.interseccionActual) {
                     const aptoActivo = this.interseccionActual.object
-                    this.quitarAislamiento(false)
-                    this.aislarApto(aptoActivo.userData.id)
+                    this.interaccion.quitarAislamiento(false)
+                    this.interaccion.aislarApto(aptoActivo.userData.id)
                 }
             })
             //
             this.interaccion.btnCerrarTooltip.addEventListener('click', (event) => {
                 event.preventDefault()
-                this.quitarAislamiento(true)
+                this.interaccion.quitarAislamiento(true)
             })
         })
     }
@@ -191,7 +191,7 @@ export default class Maqueta {
         this.brujula_sph.setFromVector3(this.brujula_dir)
         this.brujula.style.transform = `rotate(${THREE.Math.radToDeg(this.brujula_sph.theta) - 180}deg)`;
     }
-    aislarApto(identificador) {
+    /*aislarApto(identificador) {
 
         const filasResultados = Array.from(document.querySelectorAll('#modal-unidades tbody tr'))
         const filasFavoritos = Array.from(document.querySelectorAll('#modal-favoritos tbody tr'))
@@ -231,7 +231,7 @@ export default class Maqueta {
                 }
             }
         })
-    }
+    }*/
     moverCamara(child) {
         //Mover camara
         const aptoX = child.position.x * this.mundo.mascarasProyecto.scale.x + (this.tamanos.posicionProyecto.x * 1),
@@ -285,7 +285,7 @@ export default class Maqueta {
         })
 
     }
-    quitarAislamiento(animarCamara) {
+    /*quitarAislamiento(animarCamara) {
         this.interaccion.tooltipApto.classList.remove('activo')
         this.interaccion.btnMostrarApto.dataset.destino = ''
 
@@ -334,5 +334,5 @@ export default class Maqueta {
             })
         }
 
-    }
+    }*/
 }
