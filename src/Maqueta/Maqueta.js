@@ -8,12 +8,12 @@ import Camara from './Camara.js'
 import Renderer from './Renderer.js'
 import Tamanos from "./Utils/Tamanos.js"
 import Tiempo from "./Utils/Tiempo.js"
-import Colores from "./Mundo/Skins/Skin_2/Colores.js"
+import Colores from "./Mundo/Skins/Skin_1/Colores.js"
 import Mundo from './Mundo/Mundo.js'
 import Recursos from './Utils/Recursos.js'
 import sources from './sources.js'
 import Debug from './Utils/Debug.js'
-import Materiales from './Mundo/Skins/Skin_2/Materiales.js'
+import Materiales from './Mundo/Skins/Skin_1/Materiales.js'
 import Interaccion from './Interaccion/Interaccion.js'
 import Hotspots from './Interaccion/Hotspots.js'
 import Inventario from './Inventario.js'
@@ -58,6 +58,7 @@ export default class Maqueta {
         this.brujula_dir = new THREE.Vector3()
         this.brujula_sph = new THREE.Spherical()
         this.brujula = document.getElementById('brujula')
+        
 
 
         this.stats = Stats()
@@ -92,6 +93,7 @@ export default class Maqueta {
                 if (this.interseccionActual) {
                     const aptoActivo = this.interseccionActual.object
                     this.interaccion.quitarAislamiento(false)
+                    
                     this.interaccion.aislarApto(aptoActivo.userData.id)
                 }
             })
@@ -100,6 +102,35 @@ export default class Maqueta {
                 event.preventDefault()
                 this.interaccion.quitarAislamiento(true)
             })
+            //
+            this.iniciar()
+        })
+    }
+    iniciar() {
+        //Quitar loading
+        const pantallaCarga = document.getElementById('pantalla-carga'),
+        logo = pantallaCarga.querySelector('.logo')
+
+        pantallaCarga.classList.add('cargado')
+        
+        //Mover camara
+        const controles = this.camara.controles
+        controles.enabled = false
+        gsap.to(this.camara.instancia.position, {
+            duration: 4,
+            delay: 2,
+            ease: "power3.out",
+            x: -14.289,
+            y: 2.000,
+            z: -3.535,
+            onUpdate: function () {
+                controles.update()
+            },
+            onComplete: function () {
+                controles.enabled = true
+                logo.classList.add('cargado')
+                setTimeout(()=>{pantallaCarga.style.display = 'none'}, 1000)
+            }
         })
     }
 
@@ -114,6 +145,7 @@ export default class Maqueta {
         this.posicionarHotspots()
         this.interactuarMascaras()
         this.moverBrujula()
+        //console.log(this.camara.instancia.position)
         //this.mundo.rotarNubes()
     }
     actualizarStats() {
@@ -160,6 +192,7 @@ export default class Maqueta {
                 intersecciones = this.raycasterAptos.intersectObjects(objetosEvaluar, true)
             if (intersecciones.length) {
                 this.interseccionActual = intersecciones[0]
+                
                 if (this.interseccionActual.object.type === 'Mesh') {
                     for (const objeto of objetosEvaluar) {
                         for (const hijo of objeto.children) {
@@ -262,7 +295,8 @@ export default class Maqueta {
             duration: 1,
             x: this.tamanos.posicionCamara.x,
             y: this.tamanos.posicionCamara.y,
-            z: this.tamanos.posicionCamara.z,
+            //z: this.tamanos.posicionCamara.z,
+            z: 6,
             onUpdate: function () {
                 controles.update()
             },

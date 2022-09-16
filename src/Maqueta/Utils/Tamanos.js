@@ -13,9 +13,9 @@ export default class Tamanos extends EventEmitter {
             z: 0.05
         }
         this.posicionProyecto = {
-            x: 2.84,
-            y: 0.025,
-            z: -5.67
+            x: -3.83,
+            y: 0.92,
+            z: 3.64
         }
         this.posicionCamara = {
             x: 5,

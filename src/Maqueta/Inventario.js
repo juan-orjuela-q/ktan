@@ -10,17 +10,26 @@ export default class Inventario {
         this.recursos = this.maqueta.recursos
         
         this.mascarasProyecto = this.maqueta.mundo.mascarasProyecto
-        this.btnFiltrar = document.getElementById('filtrar')
+        //this.btnFiltrar = document.getElementById('filtrar')
         
         
-        this.tablaResultados = document.querySelector('#resultados tbody')
-        this.formatoNumero = Intl.NumberFormat('de-DE')
+        //this.tablaResultados = document.querySelector('#resultados tbody')
+        //this.formatoNumero = Intl.NumberFormat('de-DE')
 
         this.recursos.on('cargado', () => {
             this.inventario = this.recursos.items.inventario
             this.cargarMascaras()
+            //this.cargarMascaras()
         })
     }
+    cargarMascarasTest(){
+        for (const mascara of this.recursos.items.mascarasInventario.scene.children) {
+            const name = mascara.name
+            //torre_1_904_tipo_4
+            console.log(name)
+        }
+    }
+
 
     cargarMascaras() {
 
@@ -55,7 +64,7 @@ export default class Inventario {
 
         }
         this.mascarasProyecto.add(this.recursos.items.mascarasInventario.scene)
-        this.btnFiltrar.addEventListener('click', ()=> {this.consultar(event, this.inventario)}, false)
+        //this.btnFiltrar.addEventListener('click', ()=> {this.consultar(event, this.inventario)}, false)
     }
    
     consultar(e, inventario) {

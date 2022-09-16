@@ -4,6 +4,11 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 
 module.exports = {
+    resolve: { 
+        fallback: {
+            path: false 
+        }
+    },
     entry: {
         principal: path.resolve(__dirname, '../src/script.js') 
         /*loaders_maqueta: {

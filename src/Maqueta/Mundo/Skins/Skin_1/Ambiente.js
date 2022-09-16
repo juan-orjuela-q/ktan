@@ -14,6 +14,7 @@ export default class Ambiente {
         if (this.debug.active) {
             this.debugLuces = this.debug.ui.addFolder('Luces')
             this.debugCielo = this.debug.ui.addFolder('Cielo')
+            this.debugEnv = this.debug.ui.addFolder('Environment')
         }
 
         //Crear cielo
@@ -25,11 +26,8 @@ export default class Ambiente {
 
         //Crear environment map
         this.crearEnvironmentMap()
-        //this.aplicarEnvironmentMap()
+        this.aplicarEnvironmentMap()
     }
-
-
-
     crearCielo() {
         const niebla = new THREE.Fog(this.colores.coloresMundo.colorBruma, 8, 125)
         this.escena.fog = niebla
@@ -49,9 +47,8 @@ export default class Ambiente {
     }
 
     crearAmbientLight() {
-        const ambientLight = new THREE.AmbientLight(this.colores.luces.ambient, 0.6)
+        const ambientLight = new THREE.AmbientLight(this.colores.luces.ambient, 0.85)
         this.escena.add(ambientLight)
-
         //Debug
         if (this.debug.active) {
             this.debugLuces.add(ambientLight, 'intensity').min(0).max(5).step(0.05).name('Amb. Intensity')
@@ -86,7 +83,7 @@ export default class Ambiente {
         if (this.debug.active) {
             this.debugLuces.add(directionalLight, 'intensity').min(0).max(5).step(0.01).name('Dir. Intensity')
             this.debugLuces.add(directionalLight.position, 'x').min(-25).max(250).step(0.01).name('Dir. x')
-            this.debugLuces.add(directionalLight.position, 'y').min(0.1).max(250).step(0.01).name('Dir. y')
+            this.debugLuces.add(directionalLight.position, 'y').min(0.01).max(250).step(0.01).name('Dir. y')
             this.debugLuces.add(directionalLight.position, 'z').min(-25).max(250).step(0.01).name('Dir. z')
 
             /*this.debugFolder.add(directionalLight.shadow.camera, 'near').min(-25).max(25).step(0.1).name('Dir Shadow near')
@@ -112,25 +109,22 @@ export default class Ambiente {
     crearEnvironmentMap() {
 
         this.environmentMap = {}
-        this.environmentMap.intensity = 0
+        this.environmentMap.intensity = 1
         this.environmentMap.texture = this.recursos.items.environmentMapTexture
-        this.environmentMap.texture.encoding = THREE.sRGBEncoding
-
-
-        this.escena.background = this.environmentMap.texture
-
-
+        //this.environmentMap.texture.encoding = THREE.sRGBEncoding
+        //this.escena.background = this.environmentMap.texture
     }
 
     aplicarEnvironmentMap() {
-        this.escena.environment = this.environmentMap.texture
+        //this.escena.environment = this.environmentMap.texture
         this.environmentMap.updateMaterials = () => {
             this.escena.traverse((child) => {
-                if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
+                
+                if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial && child.userData.env === true) {
                     child.material.envMap = this.environmentMap.texture
                     child.material.envMapIntensity = this.environmentMap.intensity
                     child.material.needsUpdate = true
-                }
+                } 
             })
         }
         this.environmentMap.updateMaterials()

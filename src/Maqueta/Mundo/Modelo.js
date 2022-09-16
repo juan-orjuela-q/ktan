@@ -4,7 +4,7 @@ import * as THREE from 'three'
 import Maqueta from '../Maqueta.js'
 
 export default class Modelo {
-    constructor(recurso, material, grupo, lineas) {
+    constructor(recurso, material, grupo, lineas, env) {
         this.maqueta = new Maqueta()
         this.escena = this.maqueta.escena
         this.colores = this.maqueta.colores
@@ -12,6 +12,7 @@ export default class Modelo {
         this.recurso = recurso
         this.material = material
         this.lineas = lineas
+        this.env = env
         this.crearModelo()
 
     }
@@ -23,19 +24,23 @@ export default class Modelo {
         this.modelo.traverse((child) => {
             
             child.material = this.material
-            child.castShadow = true
-            child.receiveShadow = true
-            /*if (child instanceof THREE.Mesh) {
-                child.castShadow = true
-            }*/
+            //child.castShadow = true
+            //child.receiveShadow = true
+            //if (child instanceof THREE.Mesh) {
+            //    child.castShadow = true
+            //}
+            if(this.env) {
+                child.userData.env = true
+            } else {
+                child.userData.env = false
+            }
         })
         this.grupo.add(this.modelo)
         if(this.lineas) {
             
             for (let i = 0; i < this.modelo.children.length; i++) {
-                var geo = new THREE.EdgesGeometry(this.modelo.children[i].geometry)
 
-                
+                var geo = new THREE.EdgesGeometry(this.modelo.children[i].geometry)
                 
                 var mat = new THREE.LineBasicMaterial({
                     color: this.colores.coloresMundo.colorEdificiosLinea,
@@ -43,7 +48,9 @@ export default class Modelo {
                     transparent: true,
                     opacity: .35
                 })
+
                 var wireframe = new THREE.LineSegments(geo, mat )
+                
                 this.modelo.children[i].add(wireframe)
             }
         }

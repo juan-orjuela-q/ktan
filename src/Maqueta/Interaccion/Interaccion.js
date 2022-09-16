@@ -1,6 +1,7 @@
 import Maqueta from "../Maqueta.js"
 import Cercanias from "./Cercanias.js"
 import gsap from 'gsap'
+import { getItemDescriptor } from "@babel/core/lib/config/item.js"
 
 export default class Interaccion {
     constructor() {
@@ -19,6 +20,23 @@ export default class Interaccion {
         this.btnNuevaBusqueda = document.getElementById('btn-nueva-busqueda')
         this.tablaResultados = document.querySelector('#resultados tbody')
         this.filasApto = document.querySelectorAll('.listado-resultados tbody tr')
+        this.btnMostrarZonas = document.getElementById('btnZonas')
+        //Modal hotspot zonas
+        this.modalHotspot = document.querySelector('#modal-hotspots')
+        this.hotImg = this.modalHotspot.querySelector('.hotspot-img')
+        this.hotLabel = this.modalHotspot.querySelector('.hotspot-label')
+        this.hotspotZonasBtn = document.querySelectorAll('.hw-zonas .hotspot')
+
+        this.hotspotZonasBtn.forEach(item => {
+            item.addEventListener('click', event => {
+                event.preventDefault()
+                this.modalHotspot.classList.add('activo')
+                //this.hotImg.innerHTML = `<img src="${item.img}" alt="Planta">`
+                this.hotImg.innerHTML = `<img src="img/piscina.jpg" alt="Planta">`
+                this.hotLabel.innerHTML = 'Piscina'
+            })
+        })
+
         //Tooltip y modal aptos
         this.tooltipApto = document.getElementById('tooltip-apto')
         this.tool_torre = this.tooltipApto.querySelector('.torre span')
@@ -45,16 +63,19 @@ export default class Interaccion {
             this.limpiarInfo()
         })
 
-        
+
         //Menu flotante
         this.menuFlotanteBtns.forEach(item => {
             item.addEventListener('click', event => {
                 event.preventDefault()
                 const destino = document.querySelector(item.dataset.destino)
-                //Mostrar Pop up
-                destino.classList.add('activo')
-                //Ocultar menu
-                this.menuFlotante.classList.add('ocultar')
+                if (destino) {
+                    //Mostrar Pop up
+                    destino.classList.add('activo')
+                    //Ocultar menu
+                    this.menuFlotante.classList.add('ocultar')
+                }
+
             })
         })
         //Cerrar modales
@@ -70,13 +91,15 @@ export default class Interaccion {
         this.btnFiltrar.addEventListener('click', () => { this.filtrar(this) }, false)
         //Mostrar Apto
         this.btnMostrarApto.addEventListener('click', () => { this.mostrarApto(this) }, false)
+        //Mostrar Zonas
+        this.btnMostrarZonas.addEventListener('click', () => { this.mostrarZonas(this) }, false)
         //Ver ejemplo de inventario
         console.log('Ejemplo inventario: ', this.inventario[0])
 
     }
     // Depende de inventario
     filtrar(interaccion) {
-        //event.preventDefault();
+        event.preventDefault();
         interaccion.quitarAislamiento();
         //Limpiar máscaras
         interaccion.maqueta.mundo.mascarasProyecto.traverse(child => {
@@ -94,6 +117,7 @@ export default class Interaccion {
                 if (child.type === "Mesh") {
                     if (child.userData.id === infoID) {
                         child.visible = true
+                        child.layers.enable(1)
                     }
                 }
             })
@@ -121,14 +145,14 @@ export default class Interaccion {
             interaccion.filasApto = document.querySelectorAll('.listado-resultados tbody tr')
 
             interaccion.filasApto.forEach(item => {
-                item.addEventListener('click', () => interaccion.hoverFilaApto(event, interaccion), false)
+                item.addEventListener('click', () => interaccion.activarFila(event, interaccion), false)
             })
         }
         //Mostrar resultados
         interaccion.modalUnidades.classList.add('mostrando-resultados')
     }
     //
-    hoverFilaApto(e, interaccion) {
+    activarFila(e, interaccion) {
         e.preventDefault()
         e.stopPropagation()
         const fila = e.target,
@@ -153,7 +177,6 @@ export default class Interaccion {
 
             if (child.type === "Mesh") {
                 //Limpiar mascaras
-
                 //Poner mascara
                 if (child.userData.id === identificador) {
                     child.userData.activo = true
@@ -227,8 +250,8 @@ export default class Interaccion {
         }
     }
     // Depende de inventario
-    mostrarApto(interaccion){
-        
+    mostrarApto(interaccion) {
+
         // Si es por ID se debe usar el de abajo
         const aptoActivo = interaccion.btnMostrarApto.dataset.destino
         let obj = interaccion.inventario.find(obj => obj.id === aptoActivo)
@@ -262,7 +285,7 @@ export default class Interaccion {
     }
     //
     limpiarInfo() {
-        
+
         this.modalApto.apto_tit.innerHTML = ''
         this.modalApto.area_ac.innerHTML = ''
         this.modalApto.area_ap.innerHTML = ''
@@ -271,5 +294,71 @@ export default class Interaccion {
         this.modalApto.img_planta.innerHTML = ''
         //this.modalApto.img_piso.innerHTML = ''
     }
-}
+    mostrarZonas(interaccion) {
+        const mundo = interaccion.mundo,
+            elementos = [mundo.mascarasProyecto, mundo.torre1, mundo.torre1_balcon, mundo.torre1_balcon_plano, mundo.torre1_pergolas, mundo.torre1_ventanas, mundo.torre2, mundo.torre2_balcon, mundo.torre2_balcon_plano, mundo.torre2_pergolas, mundo.torre2_ventanas, mundo.torre3, mundo.torre3_balcon, mundo.torre3_balcon_plano, mundo.torre3_pergolas, mundo.torre3_ventanas]
 
+        const controles = this.camara.controles
+
+        //mundo.piso1_muros.modelo.material = this.materiales.materialesProyecto.zonasSeleccionadas
+        function resaltar() {
+            mundo.piso1_muros.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    child.material = interaccion.materiales.materialesProyecto.zonasSeleccionadas
+                }
+            })
+            mundo.piso1.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    child.material = interaccion.materiales.materialesProyecto.pisoSeleccionado
+                }
+            })
+            mundo.cubierta_verde.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    child.visible = false
+                }
+            })
+            mundo.piso1_placa.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    child.visible = false
+                }
+            })
+        }
+
+
+
+        controles.enabled = false
+        gsap.to(this.camara.instancia.position, {
+            duration: 2,
+            x: -4.4829,
+            y: 4.284,
+            z: -1.846,
+            onUpdate: function () {
+                controles.update()
+            },
+            onComplete: function () {
+                controles.enabled = true
+                resaltar()
+                elementos.forEach(elevar)
+                document.querySelector('.hw-zonas').classList.add('activo')
+            }
+        })
+
+
+        function elevar(item, index, arr) {
+
+            if (item.type === 'Group') {
+                gsap.to(item.position, {
+                    duration: 1,
+                    y: 80
+                })
+            } else {
+                gsap.to(item.modelo.position, {
+                    duration: 1,
+                    y: 80
+                })
+            }
+
+
+        }
+    }
+}

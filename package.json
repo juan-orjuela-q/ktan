@@ -1,5 +1,8 @@
 {
-  "repository": "#",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juan-orjuela-q/ktan_cus_syr.git"
+  },
   "license": "UNLICENSED",
   "scripts": {
     "build": "webpack --config ./bundler/webpack.prod.js",
