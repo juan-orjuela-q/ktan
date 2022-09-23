@@ -29,7 +29,7 @@ export default class Ambiente {
         this.aplicarEnvironmentMap()
     }
     crearCielo() {
-        const niebla = new THREE.Fog(this.colores.coloresMundo.colorBruma, 8, 125)
+        const niebla = new THREE.Fog(this.colores.coloresMundo.colorBruma, 8, 500)
         this.escena.fog = niebla
 
         if (this.debug.active) {
@@ -56,17 +56,15 @@ export default class Ambiente {
     }
 
     crearDirectionalLight() {
-        const directionalLight = new THREE.DirectionalLight(this.colores.luces.directional, 0.4)
+        const directionalLight = new THREE.DirectionalLight(this.colores.luces.directional, 0.3)
 
-        directionalLight.position.set(-20.42, 25.76, 20.14)
+        directionalLight.position.set(-25, 24, -5)
         directionalLight.shadow.camera.near = 10
         directionalLight.shadow.camera.far = 100
         directionalLight.shadow.camera.top = 10
         directionalLight.shadow.camera.right = 10
         directionalLight.shadow.camera.bottom = -10
         directionalLight.shadow.camera.left = -10
-
-
 
         directionalLight.castShadow = true
         directionalLight.shadow.mapSize.width = 2048

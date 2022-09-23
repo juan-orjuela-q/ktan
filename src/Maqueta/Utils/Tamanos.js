@@ -8,14 +8,14 @@ export default class Tamanos extends EventEmitter {
         this.alto = window.innerHeight
         this.pixelRatio = Math.min(window.devicePixelRatio, 2)
         this.escalaProyecto = {
-            x: 0.05,
-            y: 0.05,
-            z: 0.05
+            x: 0.025,
+            y: 0.025,
+            z: 0.025
         }
         this.posicionProyecto = {
-            x: -3.83,
-            y: 0.92,
-            z: 3.64
+            x: -2.6,
+            y: 0.5,
+            z: -0.6
         }
         this.posicionCamara = {
             x: 5,
@@ -28,7 +28,6 @@ export default class Tamanos extends EventEmitter {
             this.ancho = window.innerWidth
             this.alto = window.innerHeight
             this.pixelRatio = Math.min(window.devicePixelRatio, 2)
-
             this.trigger('redimensionar')
         })
     }

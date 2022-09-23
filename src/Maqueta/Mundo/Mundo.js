@@ -2,10 +2,10 @@
 import * as THREE from 'three'
 //Proyecto
 import Maqueta from '../Maqueta.js'
-import Ambiente from './Skins/Skin_1/Ambiente.js'
+import Ambiente from './Skins/Skin_2/Ambiente.js'
 import Mapa from './Mapa.js'
 import Modelo from './Modelo.js'
-import Materiales from './Skins/Skin_1/Materiales.js'
+import Materiales from './Skins/Skin_2/Materiales.js'
 
 export default class Mundo {
     constructor() {
@@ -30,12 +30,16 @@ export default class Mundo {
         this.grupoMapa = new THREE.Group()
         this.grupoVias = new THREE.Group()
         this.grupoAndenes = new THREE.Group()
+        this.grupoManzanas = new THREE.Group()
         this.grupoTransitoFijo = new THREE.Group()
         this.grupoTransito = new THREE.Group()
         this.grupoEdificios = new THREE.Group()
+        this.grupoEdificiosBajos = new THREE.Group()
+        this.grupoArbolesCoord = new THREE.Group()
         this.grupoArboles = new THREE.Group()
         this.grupoProyecto = new THREE.Group()
         this.mascarasProyecto = new THREE.Group()
+        
 
         this.crearHelper()
 
@@ -45,7 +49,7 @@ export default class Mundo {
             //this.mapa = new Mapa()
             this.crearTerreno()
             this.crearMapa()
-            //this.crearVegetacion()
+            this.crearVegetacion()
             this.crearModelos()
             this.crearMascaras()
             this.crearDebug()
@@ -70,8 +74,8 @@ export default class Mundo {
     crearTerreno() {
         //Piso
         this.piso = new THREE.Mesh(
-            //new THREE.CircleGeometry(36, 32),
-            new THREE.CircleGeometry(120, 32),
+            //new THREE.PlaneGeometry(150, 150, 30, 30),
+            new THREE.CircleGeometry(75, 32),
             this.materiales.materialesContexto.piso
         )
         this.piso.receiveShadow = true
@@ -81,10 +85,11 @@ export default class Mundo {
 
         //Terreno con elevacion
         const elevacion = new THREE.Mesh(
-            new THREE.PlaneGeometry(360, 360, 60, 60),
+            new THREE.PlaneGeometry(150, 150, 60, 60),
             this.materiales.materialesContexto.elevacion
         )
         elevacion.rotation.x = - Math.PI * 0.5
+        elevacion.rotation.z = Math.PI * -0.5
         elevacion.position.y = -1
         this.escena.add(elevacion)
 
@@ -92,75 +97,77 @@ export default class Mundo {
         const nubesGeo = new THREE.SphereGeometry(130, 32, 16)
         this.nubes = new THREE.Mesh(nubesGeo, this.materiales.materialesContexto.nubes)
         this.escena.add(this.nubes);
-
-        //Plataforma
-        // const plataforma = new THREE.Mesh(
-        //     new THREE.BoxGeometry(15, 7.5, 0.05),
-        //     this.materiales.materialesContexto.andenes
-        // )
-        // plataforma.rotation.x = - Math.PI * 0.5
-        // plataforma.position.y = 0.0025
-        // plataforma.position.z = -2
-        // plataforma.receiveShadow = true
-        //this.escena.add(plataforma)
-        //Satelital
-        // const satelital = new THREE.Mesh(
-        //     new THREE.PlaneGeometry(160, 90, 60, 60),
-        //     this.materiales.materialesContexto.satelital
-        // )
-        // satelital.rotation.x = - Math.PI * 0.5
-        // satelital.position.y = 0.0025
-        // satelital.receiveShadow = true
-        //this.escena.add(satelital)
+        
     }
     rotarNubes() {
         this.nubes.rotation.z += 0.001
     }
     crearMapa() {
-        //Andenes
-        this.mapa.andenes = new Mapa(this.recursos.items.svg_andenes, this.materiales.materialesContexto.andenes, this.grupoAndenes, true, 0.075)
-        this.grupoAndenes.position.set(4, 25.9, 0)
-        this.grupoMapa.add(this.grupoAndenes)
+    //Andenes
+    this.mapa.andenes = new Mapa(this.recursos.items.svg_andenes, this.materiales.materialesContexto.andenes, this.grupoAndenes, true, 0.1)
+    this.grupoAndenes.position.set(0, 0, -0.2)
+    this.grupoMapa.add(this.grupoAndenes)
 
-        //Vias
-        this.mapa.vias = new Mapa(this.recursos.items.svg_vias, this.materiales.materialesContexto.vias, this.grupoVias)
-        this.grupoVias.position.set(0, 0, -0.01)
-        this.grupoMapa.add(this.grupoVias)
-        //Edificios
-        this.mapa.edificios = new Mapa(this.recursos.items.svg_edificios, this.materiales.materialesContexto.edificios, this.grupoEdificios, true, 0.75, this.materiales.materialesContexto.edificiosLinea)
-        this.grupoEdificios.position.set(5.3, 28.7, - 0.76)
-        this.grupoMapa.add(this.grupoEdificios)
-        //Edificios Altos
-        this.mapa.edificiosAltos = new Mapa(this.recursos.items.svg_edificios_altos, this.materiales.materialesContexto.edificios, this.grupoEdificios, true, 3.75, this.materiales.materialesContexto.edificiosLinea)
-        //this.grupoMapa.add(this.grupoEdificiosAltos)
-        //Agregar arboles
-        const arboles = ''
+    this.mapa.manzanas = new Mapa(this.recursos.items.svg_manzanas, this.materiales.materialesContexto.manzanas, this.grupoManzanas, true, 0.1)
+    
+
+    this.grupoMapa.add(this.grupoManzanas)
+
+    //Vias
+    //this.mapa.vias = new Mapa(this.recursos.items.svg_vias, this.materiales.materialesContexto.vias, this.grupoVias)
+    //this.grupoVias.position.set(0, 0, -0.01)
+    //this.grupoMapa.add(this.grupoVias)
+
+    //Edificios
+    this.mapa.edificios = new Mapa(this.recursos.items.svg_edificios, this.materiales.materialesContexto.edificios, this.grupoEdificios, true, 12, this.materiales.materialesContexto.edificiosLinea)
+    this.mapa.vecinos = new Mapa(this.recursos.items.svg_vecinos, this.materiales.materialesContexto.vecinos, this.grupoEdificios, true, 12, this.materiales.materialesContexto.edificiosLinea)
+    this.grupoEdificios.position.set(0, 0, -12)
+    this.grupoMapa.add(this.grupoEdificios)
+
+    //Edificios Bajos
+    this.mapa.edificiosBajos = new Mapa(this.recursos.items.svg_edificios_bajos, this.materiales.materialesContexto.edificios, this.grupoEdificiosBajos, true, 4, this.materiales.materialesContexto.edificiosLinea)
+    this.mapa.vecinosBajos = new Mapa(this.recursos.items.svg_vecinos_bajos, this.materiales.materialesContexto.vecinos, this.grupoEdificiosBajos, true, 4, this.materiales.materialesContexto.edificiosLinea)
+    this.grupoEdificiosBajos.position.set(0, 0, -4)
+    this.grupoMapa.add(this.grupoEdificiosBajos)
+
+    //Transito
+    this.mapa.transito = new Mapa(this.recursos.items.svg_transito, this.materiales.materialesContexto.transito, this.grupoTransito, false)
+    this.grupoTransito.position.set(0, 0, 0.01)
+    this.grupoMapa.add(this.grupoTransito)
+
+    //Coord Arboles
+        this.mapa.coord_arboles = new Mapa(this.recursos.items.svg_coord_arboles, this.materiales.materialesContexto.arboles, this.grupoArbolesCoord, false)
+        this.grupoArbolesCoord.position.set(0, 0, 0.03)
+        this.grupoMapa.add(this.grupoArbolesCoord)
+
+        console.log(this.grupoArbolesCoord)
+
+        
         //Configurar mapa
-        this.grupoMapa.rotation.x = Math.PI * 0.5
-        //this.grupoMapa.position.set(-68.5, 0.01, -62.8)
-        this.grupoMapa.position.set(-72.9, 0.01, -50.9)
-        this.grupoMapa.rotation.z = -0.07
-        this.grupoMapa.scale.set(0.64, 0.64, 0.64)
-        this.escena.add(this.grupoMapa)
-        if (this.debug.active) {
-            this.debugMapa.add(this.grupoMapa.position, 'x').min(-1000).max(100).step(0.1).name('Mapa x')
-            this.debugMapa.add(this.grupoMapa.position, 'y').min(-10).max(10).step(0.01).name('Mapa y')
-            this.debugMapa.add(this.grupoMapa.position, 'z').min(-100).max(100).step(0.1).name('Mapa z')
 
-        }
+        this.grupoMapa.rotation.x = Math.PI * 0.5
+        this.grupoMapa.position.set(-74.481, 0, -76.01)
+        this.grupoMapa.scale.set(0.0696, 0.0696, 0.0696)
+
+        this.escena.add(this.grupoMapa)
+        
     }
     crearVegetacion() {
-        this.grupoArboles.position.set(-67.2, 0.01, -70.7)
-        this.grupoArboles.scale.set(0.64, 0.64, 0.64)
-        this.grupoArboles.rotation.y = 0.07;
-        //Arboles
+        this.grupoArboles.scale.set(0.0696, 0.0696, 0.0696)
+
+        
+        this.grupoArboles.position.set(-74.1, 0, -89)
+        
+        
         this.vegetacion = {}
 
-        this.vegetacion.vegetacionSVG = this.recursos.items.svg_arboles
+        this.vegetacion.vegetacionSVG = this.recursos.items.svg_coord_arboles
         this.vegetacion.vegetacionModelo1 = this.recursos.items.modelo_arbol_1.scene
         this.vegetacion.vegetacionModelo2 = this.recursos.items.modelo_arbol_2.scene
 
         const pathsSVG = this.vegetacion.vegetacionSVG.paths
+
+        
 
         //Distribuir arboles en dos grupos
 
@@ -180,16 +187,17 @@ export default class Mundo {
 
         }
 
+        
         //Agregar grupo 1
         this.vegetacion.vegetacionModelo1.traverse((child) => {
-            child.material = this.materiales.materialesProyecto.arboles
-            child.castShadow = true
+            child.material = this.materiales.materialesContexto.arboles
+            //child.castShadow = true
         })
         for (let p = 0; p < posicionArboles.length; p++) {
             const n = this.numAleatorio(65, 100) / 100
             const r = (Math.random() * 2) * Math.PI
             const arbolito = new THREE.Object3D()
-            this.vegetacion.vegetacionModelo1.scale.set(0.1, 0.1, 0.1)
+            this.vegetacion.vegetacionModelo1.scale.set(1,1,1)
             arbolito.add(this.vegetacion.vegetacionModelo1.clone())
             arbolito.position.set(posicionArboles[p].x, -0.05, posicionArboles[p].y)
             arbolito.children[0].children[0].scale.set(n, n, n)
@@ -200,14 +208,14 @@ export default class Mundo {
         this.escena.add(this.grupoArboles)
         //Agregar grupo 2
         this.vegetacion.vegetacionModelo2.traverse((child) => {
-            child.material = this.materiales.materialesProyecto.arboles
-            child.castShadow = true
+            child.material = this.materiales.materialesContexto.arboles
+            //child.castShadow = true
         })
         for (let p = 0; p < posicionArboles2.length; p++) {
             const n = this.numAleatorio(45, 90) / 100
             const r = (Math.random() * 2) * Math.PI
             const arbolito = new THREE.Object3D()
-            this.vegetacion.vegetacionModelo2.scale.set(0.1, 0.1, 0.1)
+            this.vegetacion.vegetacionModelo2.scale.set(1,1,1)
             arbolito.add(this.vegetacion.vegetacionModelo1.clone())
             arbolito.position.set(posicionArboles2[p].x, -0.05, posicionArboles2[p].y)
             arbolito.children[0].children[0].scale.set(n, n, n)
@@ -221,43 +229,45 @@ export default class Mundo {
     crearModelos() {
 
         //Proyecto
+        this.arboles = new Modelo(this.recursos.items.modelo_arboles, this.materiales.materialesProyecto.arboles, this.grupoProyecto)
+
         this.cubierta_verde = new Modelo(this.recursos.items.modelo_cubierta_verde, this.materiales.materialesProyecto.cubierta_verde, this.grupoProyecto)
         
-        this.piso1_bajada = new Modelo(this.recursos.items.modelo_piso1_bajada, this.materiales.materialesProyecto.piso1_bajada, this.grupoProyecto)
-        this.piso1_entrada_vehiculos = new Modelo(this.recursos.items.modelo_piso1_entrada_vehiculos, this.materiales.materialesProyecto.piso1_entrada_vehiculos, this.grupoProyecto)
-        this.piso1_entrada = new Modelo(this.recursos.items.modelo_piso1_entrada, this.materiales.materialesProyecto.piso1_entrada, this.grupoProyecto)
-        this.piso1_muros = new Modelo(this.recursos.items.modelo_piso1_muros, this.materiales.materialesProyecto.piso1_muros, this.grupoProyecto)
-        this.piso1_parque = new Modelo(this.recursos.items.modelo_piso1_parque, this.materiales.materialesProyecto.piso1_parque, this.grupoProyecto)
-        this.piso1_pergola = new Modelo(this.recursos.items.modelo_piso1_pergola, this.materiales.materialesProyecto.piso1_pergola, this.grupoProyecto)
-        this.piso1_placa = new Modelo(this.recursos.items.modelo_piso1_placa, this.materiales.materialesProyecto.piso1_placa, this.grupoProyecto)
-        this.piso1_ventanas = new Modelo(this.recursos.items.modelo_piso1_ventanas, this.materiales.materialesProyecto.piso1_ventanas, this.grupoProyecto)
-        this.piso1 = new Modelo(this.recursos.items.modelo_piso1, this.materiales.materialesProyecto.piso1, this.grupoProyecto)
+        //*this.piso1_bajada = new Modelo(this.recursos.items.modelo_piso1_bajada, this.materiales.materialesProyecto.piso1_bajada, this.grupoProyecto)
+        this.piso1_entrada_vehiculos = new Modelo(this.recursos.items.modelo_piso1_entrada_vehiculos, this.materiales.materialesProyecto.piso1_entrada_vehiculos, this.grupoProyecto, false, true)
+        this.piso1_entrada = new Modelo(this.recursos.items.modelo_piso1_entrada, this.materiales.materialesProyecto.piso1_entrada, this.grupoProyecto, false, true)
+        this.piso1_muros = new Modelo(this.recursos.items.modelo_piso1_muros, this.materiales.materialesProyecto.piso1_muros, this.grupoProyecto, false, true)
+        this.piso1_parque = new Modelo(this.recursos.items.modelo_piso1_parque, this.materiales.materialesProyecto.piso1_parque, this.grupoProyecto, false, true)
+        this.piso1_pergola = new Modelo(this.recursos.items.modelo_piso1_pergola, this.materiales.materialesProyecto.piso1_pergola, this.grupoProyecto, false, true)
+        this.piso1_placa = new Modelo(this.recursos.items.modelo_piso1_placa, this.materiales.materialesProyecto.piso1_placa, this.grupoProyecto, false, true)
+        this.piso1_ventanas = new Modelo(this.recursos.items.modelo_piso1_ventanas, this.materiales.materialesProyecto.piso1_ventanas, this.grupoProyecto, false, true)
+        this.piso1 = new Modelo(this.recursos.items.modelo_piso1, this.materiales.materialesProyecto.piso1, this.grupoProyecto, false, true)
 
         //this.primer_piso = new Modelo(this.recursos.items.modelo_primer_piso, this.materiales.materialesProyecto.primer_piso, this.grupoProyecto)
         this.rampa = new Modelo(this.recursos.items.modelo_rampa, this.materiales.materialesProyecto.rampa, this.grupoProyecto)
 
         this.torre1_balcon_plano = new Modelo(this.recursos.items.modelo_torre1_balcon_plano, this.materiales.materialesProyecto.torre1_balcon_plano, this.grupoProyecto, false, true)
         this.torre1_balcon = new Modelo(this.recursos.items.modelo_torre1_balcon, this.materiales.materialesProyecto.torre1_balcon, this.grupoProyecto, false, true)
-        this.torre1_pergolas = new Modelo(this.recursos.items.modelo_torre1_pergolas, this.materiales.materialesProyecto.torre1_pergolas_color, this.grupoProyecto)
+        this.torre1_pergolas = new Modelo(this.recursos.items.modelo_torre1_pergolas, this.materiales.materialesProyecto.torre1_pergolas, this.grupoProyecto, false, true)
         this.torre1_ventanas = new Modelo(this.recursos.items.modelo_torre1_ventanas, this.materiales.materialesProyecto.torre1_ventanas, this.grupoProyecto, false, true)
-        this.torre1 = new Modelo(this.recursos.items.modelo_torre1, this.materiales.materialesProyecto.torre1_color, this.grupoProyecto)
+        this.torre1 = new Modelo(this.recursos.items.modelo_torre1, this.materiales.materialesProyecto.torre1, this.grupoProyecto, false, true)
 
         this.torre2_balcon_plano = new Modelo(this.recursos.items.modelo_torre2_balcon_plano, this.materiales.materialesProyecto.torre2_balcon_plano, this.grupoProyecto, false, true)
         this.torre2_balcon = new Modelo(this.recursos.items.modelo_torre2_balcon, this.materiales.materialesProyecto.torre2_balcon, this.grupoProyecto, false, true)
-        this.torre2_pergolas = new Modelo(this.recursos.items.modelo_torre2_pergolas, this.materiales.materialesProyecto.torre2_pergolas_color, this.grupoProyecto)
+        this.torre2_pergolas = new Modelo(this.recursos.items.modelo_torre2_pergolas, this.materiales.materialesProyecto.torre2_pergolas, this.grupoProyecto, false, true)
         this.torre2_ventanas = new Modelo(this.recursos.items.modelo_torre2_ventanas, this.materiales.materialesProyecto.torre2_ventanas, this.grupoProyecto, false, true)
-        this.torre2 = new Modelo(this.recursos.items.modelo_torre2, this.materiales.materialesProyecto.torre2_color, this.grupoProyecto)
+        this.torre2 = new Modelo(this.recursos.items.modelo_torre2, this.materiales.materialesProyecto.torre2, this.grupoProyecto, false, true)
 
         this.torre3_balcon_plano = new Modelo(this.recursos.items.modelo_torre3_balcon_plano, this.materiales.materialesProyecto.torre3_balcon_plano, this.grupoProyecto, false, true)
         this.torre3_balcon = new Modelo(this.recursos.items.modelo_torre3_balcon, this.materiales.materialesProyecto.torre3_balcon, this.grupoProyecto, false, true)
-        this.torre3_pergolas = new Modelo(this.recursos.items.modelo_torre3_pergolas, this.materiales.materialesProyecto.torre3_pergolas_color, this.grupoProyecto)
+        this.torre3_pergolas = new Modelo(this.recursos.items.modelo_torre3_pergolas, this.materiales.materialesProyecto.torre3_pergolas, this.grupoProyecto, false, true)
         this.torre3_ventanas = new Modelo(this.recursos.items.modelo_torre3_ventanas, this.materiales.materialesProyecto.torre3_ventanas, this.grupoProyecto, false, true)
-        this.torre3 = new Modelo(this.recursos.items.modelo_torre3, this.materiales.materialesProyecto.torre3_color, this.grupoProyecto)
+        this.torre3 = new Modelo(this.recursos.items.modelo_torre3, this.materiales.materialesProyecto.torre3, this.grupoProyecto, false, true)
 
         //Configurar modelos
         this.grupoProyecto.scale.set(this.escalaProyecto.x, this.escalaProyecto.y, this.escalaProyecto.z)
         this.grupoProyecto.position.set(this.posicionProyecto.x, this.posicionProyecto.y, this.posicionProyecto.z)
-        //this.grupoProyecto.rotation.y = Math.PI * 0.25
+        this.grupoProyecto.rotation.y = Math.PI * - 0.3
         if (this.debug.active) {
             this.debugProyecto.add(this.grupoProyecto.position, 'x').min(-10).max(10).step(0.01).name('Proyecto x')
             this.debugProyecto.add(this.grupoProyecto.position, 'y').min(-10).max(10).step(0.01).name('Proyecto y')
@@ -269,19 +279,53 @@ export default class Mundo {
     crearMascaras() {
         this.mascarasProyecto.scale.set(this.escalaProyecto.x, this.escalaProyecto.y, this.escalaProyecto.z)
         this.mascarasProyecto.position.set(this.posicionProyecto.x, this.posicionProyecto.y, this.posicionProyecto.z)
+        this.mascarasProyecto.rotation.y = Math.PI * - 0.3
         this.escena.add(this.mascarasProyecto)
     }
 
     crearDebug() {
         if (this.debug.active) {
             //Helper
-            this.debugProyecto.add(this.bolaHelper.position, 'x').min(-10).max(10).step(0.01).name('Helper x')
-            this.debugProyecto.add(this.bolaHelper.position, 'y').min(-10).max(10).step(0.01).name('Helper y')
-            this.debugProyecto.add(this.bolaHelper.position, 'z').min(-10).max(10).step(0.01).name('Helper z')
+            this.debugProyecto.add(this.bolaHelper.position, 'x').min(-50).max(50).step(0.01).name('Helper x')
+            this.debugProyecto.add(this.bolaHelper.position, 'y').min(-50).max(50).step(0.01).name('Helper y')
+            this.debugProyecto.add(this.bolaHelper.position, 'z').min(-50).max(50).step(0.01).name('Helper z')
+
+            this.debugProyecto.add(this.escalaProyecto, 'x').min(0.01).max(0.1).step(0.01).name('Proyecto scale x')
+            this.debugProyecto.add(this.escalaProyecto, 'y').min(0.01).max(0.1).step(0.01).name('Proyecto scale y')
+            this.debugProyecto.add(this.escalaProyecto, 'z').min(0.01).max(0.1).step(0.01).name('Proyecto scale z')
+
+            this.debugProyecto.add(this.grupoEdificios.position, 'x').min(-100).max(100).step(1).name('Edificios x')
+            this.debugProyecto.add(this.grupoEdificios.position, 'y').min(-100).max(100).step(1).name('Edificios y')
+            this.debugProyecto.add(this.grupoEdificios.position, 'z').min(-100).max(100).step(1).name('Edificios z')
+
+            this.debugMapa.add(this.grupoMapa.position, 'x').min(-100).max(100).step(0.001).name('Mapa x')
+            this.debugMapa.add(this.grupoMapa.position, 'y').min(-100).max(100).step(0.001).name('Mapa y')
+            this.debugMapa.add(this.grupoMapa.position, 'z').min(-100).max(100).step(0.001).name('Mapa z')
+
+            this.debugMapa.add(this.grupoMapa.scale, 'x').min(0.0625).max(0.1).step(0.0001).name('Mapa scale x')
+            this.debugMapa.add(this.grupoMapa.scale, 'y').min(0.0625).max(0.1).step(0.0001).name('Mapa scale y')
+            this.debugMapa.add(this.grupoMapa.scale, 'z').min(0.0625).max(0.1).step(0.0001).name('Mapa scale z')
+
+            this.debugMapa.add(this.grupoAndenes.position, 'x').min(-1000).max(100).step(0.1).name('Andenes x')
+            this.debugMapa.add(this.grupoAndenes.position, 'y').min(-10).max(10).step(0.01).name('Andenes y')
+            this.debugMapa.add(this.grupoAndenes.position, 'z').min(-100).max(100).step(0.1).name('Andenes z')
+
+            this.debugMapa.add(this.grupoTransito.position, 'x').min(-100).max(100).step(0.1).name('Transito x')
+            this.debugMapa.add(this.grupoTransito.position, 'y').min(-100).max(100).step(0.01).name('Transito y')
+            this.debugMapa.add(this.grupoTransito.position, 'z').min(-100).max(100).step(0.1).name('Transito z')
+
+            this.debugMapa.add(this.grupoArboles.position, 'x').min(-100).max(100).step(0.1).name('Arboles x')
+            this.debugMapa.add(this.grupoArboles.position, 'y').min(-100).max(100).step(0.01).name('Arboles y')
+            this.debugMapa.add(this.grupoArboles.position, 'z').min(-100).max(100).step(0.1).name('Arboles z')
+
+            this.debugMapa.add(this.grupoArboles.scale, 'x').min(0.1).max(5).step(0.01).name('Arboles s x')
+            this.debugMapa.add(this.grupoArboles.scale, 'y').min(0.1).max(5).step(0.01).name('Arboles s y')
+            this.debugMapa.add(this.grupoArboles.scale, 'z').min(0.1).max(5).step(0.01).name('Arboles s z')
 
             
             //Colores
-            this.debugColores
+            
+                this.debugColores
                 .addColor(this.colores.coloresMundo, 'colorAndenes')
                 .onChange(() => {
                     this.materiales.materialesContexto.andenes.color.set(this.colores.coloresMundo.colorAndenes)
@@ -298,15 +342,16 @@ export default class Mundo {
             this.debugColores
                 .addColor(this.colores.coloresMundo, 'colorVias')
                 .onChange(() => {
-                    this.materiales.materialesContexto.vias.color.set(this.colores.coloresMundo.colorVias)
+                    this.materiales.materialesContexto.piso.color.set(this.colores.coloresMundo.colorVias)
                 })
                 .name('Vias')
 
             this.debugColores
                 .addColor(this.colores.coloresMundo, 'colorTerreno')
                 .onChange(() => {
-                    this.materiales.materialesContexto.piso.color.set(this.colores.coloresMundo.colorTerreno)
+                    //this.materiales.materialesContexto.piso.color.set(this.colores.coloresMundo.colorTerreno)
                     this.materiales.materialesContexto.elevacion.color.set(this.colores.coloresMundo.colorTerreno)
+                    this.materiales.materialesContexto.manzanas.color.set(this.colores.coloresMundo.colorTerreno)
                 })
                 .name('Terreno')
 

@@ -32,11 +32,38 @@ export default class Interaccion {
                 event.preventDefault()
                 this.modalHotspot.classList.add('activo')
                 //this.hotImg.innerHTML = `<img src="${item.img}" alt="Planta">`
-                this.hotImg.innerHTML = `<img src="img/piscina.jpg" alt="Planta">`
-                this.hotLabel.innerHTML = 'Piscina'
+                this.hotImg.innerHTML = `<img src="img/zona-juvenil.jpg" alt="Planta">`
+                this.hotLabel.innerHTML = 'Syrah - Zonas sociales'
             })
         })
 
+        //Temp cerrar modal zonas
+        //Boton cerrar
+        this.modalHotspot.querySelector('.btn-volver-hot').addEventListener('click', (event) => {
+            event.preventDefault()
+            this.modalHotspot.classList.remove('activo')
+
+            /*const controles = this.camara.controles
+            gsap.to(controles.target, {
+                duration: 1,
+                x: 0,
+                y: 0.75,
+                z: 0,
+                onUpdate: function () {
+                    controls.update();
+                },
+                onComplete: function () {
+                    controls.enabled = true;
+                    //Mostrar popup
+                }
+            });
+            controls.minDistance = 4
+            limpiarModalHot()*/
+        })
+        /*function limpiarModalHot() {
+            hotImg.innerHTML = ''
+            hotLabel.innerHTML = ''
+        }*/
         //Tooltip y modal aptos
         this.tooltipApto = document.getElementById('tooltip-apto')
         this.tool_torre = this.tooltipApto.querySelector('.torre span')
@@ -194,7 +221,9 @@ export default class Interaccion {
                     this.tool_apto.innerHTML = obj.apto_tit
                     this.tool_ac.innerHTML = obj.area_ac
                     this.tool_ap.innerHTML = obj.area_ap
-                    this.tool_img.innerHTML = `<img src="${obj.img_planta}" alt="Planta de unidad">`
+                    //this.tool_img.innerHTML = `<img src="${obj.img_planta}" alt="Planta de unidad">`
+
+                    this.tool_img.innerHTML = `<img src="/plantas/syrah-apto-1_thumb.jpg" alt="Planta de unidad">`
                 }
             }
         })
@@ -262,7 +291,8 @@ export default class Interaccion {
         interaccion.modalApto.suf_tit.innerHTML = 'Apto tipo ' + obj.tipo
         interaccion.modalApto.area_ac.innerHTML = obj.area_ac
         interaccion.modalApto.area_ap.innerHTML = obj.area_ap
-        interaccion.modalApto.img_planta.innerHTML = `<img src="${obj.img_planta}" alt="Planta de unidad">`
+        //interaccion.modalApto.img_planta.innerHTML = `<img src="${obj.img_planta}" alt="Planta de unidad">`
+        interaccion.modalApto.img_planta.innerHTML = `<img src="/plantas/syrah-apto-1.jpg" alt="Planta de unidad">`
         //area_b.innerHTML = obj.area_b
         /*interaccion.modalApto.atributos.innerHTML = `<li>Habitaciones: ${obj.habitaciones}</li><li>Baños: ${obj.banos}</li>`
         if (obj.atributos) {
@@ -282,6 +312,22 @@ export default class Interaccion {
             btnTour.classList.remove('visible')
             tourApto.setAttribute('src', '')
         }*/
+
+
+        //Recorridos 360
+        const modalTour = document.querySelector('#modal-tour'),
+            btnTour = document.querySelector('#btn-tour-360'),
+            btnTourCerrar = modalTour.querySelector('.btn-cerrar-360')
+        //Mostrar recorrido
+        btnTour.addEventListener('click', (event) => {
+            event.preventDefault()
+            modalTour.classList.add('activo')
+        })
+        btnTourCerrar.addEventListener('click', (event) => {
+            event.preventDefault()
+            modalTour.classList.remove('activo')
+            //tourApto.setAttribute('src', '')
+        })
     }
     //
     limpiarInfo() {
@@ -309,7 +355,7 @@ export default class Interaccion {
             })
             mundo.piso1.modelo.traverse(child => {
                 if (child.type === "Mesh") {
-                    child.material = interaccion.materiales.materialesProyecto.pisoSeleccionado
+                    //child.material = interaccion.materiales.materialesProyecto.pisoSeleccionado
                 }
             })
             mundo.cubierta_verde.modelo.traverse(child => {
@@ -320,6 +366,7 @@ export default class Interaccion {
             mundo.piso1_placa.modelo.traverse(child => {
                 if (child.type === "Mesh") {
                     child.visible = false
+                    //child.material = interaccion.materiales.materialesProyecto.pisoSeleccionado
                 }
             })
         }
@@ -329,9 +376,9 @@ export default class Interaccion {
         controles.enabled = false
         gsap.to(this.camara.instancia.position, {
             duration: 2,
-            x: -4.4829,
-            y: 4.284,
-            z: -1.846,
+            x: -1.46,
+            y: 2.06,
+            z: -0.74,
             onUpdate: function () {
                 controles.update()
             },
@@ -349,16 +396,19 @@ export default class Interaccion {
             if (item.type === 'Group') {
                 gsap.to(item.position, {
                     duration: 1,
-                    y: 80
+                    y: 180
                 })
             } else {
                 gsap.to(item.modelo.position, {
                     duration: 1,
-                    y: 80
+                    y: 180
                 })
             }
 
 
         }
+
+        
     }
+
 }

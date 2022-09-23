@@ -5,27 +5,56 @@
 
 /*Variables*/
 :root {
-    --color1: #222431;
-    --color2: #f9e2d0 /*#EDE0CE*/ ;
-    --color3: #C1403A;
-    --color4: #458376;
-    --color5: #313c90;
-    --colorBlanco: #ffffff;
-    --colorNegro: #000000;
-    --gris: #ededed;
-    --grisOscuro: #70676F;
-    --fuente1: 'Nunito Sans', sans-serif;
+    --color1: #fb010b;
+    --color2: rgb(112, 112, 112);
+    --color3: rgb(242, 242, 242);
+    --blanco: #ffffff;
+    --negro: #000000;
+    --gris: rgb(242, 242, 242);
+    --grisOscuro: rgb(112, 112, 112);
+    --fuente1: 'Gill Sans', Trebuchet, sans-serif;
     --icoVolver: 'url(https://chromastudio.co/sole/wp-content/uploads/2022/03/volver-sole.svg)'
 }
+/*Fuentes*/
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('/static/fuentes/GillSans-Light.woff2') format('woff2'),
+        url('/static/fuentes/GillSans-Light.woff') format('woff'),
+        url('/static/fuentes/GillSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('/static/fuentes/GillSans-Book.woff2') format('woff2'),
+        url('/static/fuentes/GillSans-Book.woff') format('woff'),
+        url('/static/fuentes/GillSans-Book.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Gill Sans';
+    src: url('/static/fuentes/GillSans-Bold.woff2') format('woff2'),
+        url('/static/fuentes/GillSans-Bold.woff') format('woff'),
+        url('/static/fuentes/GillSans-Bold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
 
 /*Generales*/
 html, body {
     overflow: hidden;
-    font-family: var(--fuente1)
+    font-family: var(--fuente1);
+    font-weight: 400;
 }
 
 body {
-    background-color: var(--color1)
+    background-color: var(--gris);
+    color: var(--grisOscuro);
 }
 
 .webgl {
@@ -49,7 +78,7 @@ img {
 
 .btn.activo {
     background-color: var(--color1);
-    color: var(--colorBlanco);
+    color: var(--blanco);
 }
 
 /*Recorrido*/
@@ -60,9 +89,10 @@ img {
     transition: left .5s ease;
     height: 100%;
     overflow: auto;
-    background: var(--color1);
-    color: var(--color2);
+    background: var(--gris);
+    color: var(--grisOscuro);
     z-index: 101;
+    top: 0;
 }
 
 #modal-tour.activo {
@@ -84,7 +114,7 @@ img {
     border-radius: 100%;
     width: 50px;
     height: 50px;
-    border: 2px solid var(--color2);
+    border: 2px solid var(--blanco);
     background: transparent;
     display: block;
     padding: 0;
@@ -95,7 +125,7 @@ img {
 
 .btn-cerrar-360:before, .btn-cerrar-360:after {
     content: '';
-    background: var(--color2);
+    background: var(--blanco);
     width: 20px;
     height: 2px;
     position: absolute;
@@ -222,7 +252,7 @@ img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: var(--color3);
+    background: var(--color1);
     border-radius: 100%;
 }
 
@@ -237,7 +267,7 @@ img {
     transition: opacity .3s ease;
 }
 
-.hw-cercanias .hotspot.visible .texto {
+.hotspots-wrapper  .hotspot.visible .texto {
     display: initial;
     opacity: 1;
 }
@@ -288,26 +318,28 @@ img {
 }
 
 .hw-cercanias .hotspot .texto .distancia .pie:before {
-    background-image: url(https://chromastudio.co/sole/wp-content/uploads/2022/04/ico-pie.svg);
+    
+    background-image: url(/static/img/pie.svg);
 }
 
 .hw-cercanias .hotspot .texto .distancia .bici:before {
-    background-image: url(https://chromastudio.co/sole/wp-content/uploads/2022/04/ico-bici.svg);
+    background-image: url(/static/img/bici.svg);
 }
 
 .hw-cercanias .hotspot .texto .distancia .carro:before {
-    background-image: url(https://chromastudio.co/sole/wp-content/uploads/2022/04/ico-carro.svg);
+    background-image: url(/static/img/carro.svg);
 }
 
 #modal-aptos {
     position: fixed;
+    top: 0;
     left: 100%;
     width: 100%;
     transition: left .5s ease;
     height: 100%;
     overflow: auto;
-    background: var(--color1);
-    color: var(--color2);
+    background: var(--gris);
+    color: var(--grisOscuro);
     z-index: 99;
 }
 
@@ -335,7 +367,7 @@ img {
 
 .col-planos {
     flex-grow: 2;
-    background: var(--color2);
+    background: var(--blanco);
     max-height: 100vh;
     overflow: hidden;
     display: flex;
@@ -372,7 +404,7 @@ img {
 
 .btn-volver {
     right: 15px;
-    background: var(--color3);
+    background: var(--color1);
 }
 
 #maqueta-menu .btn-cerrar {
@@ -493,17 +525,18 @@ html {
     top: 0;
     left: 0;
     z-index: 99;
-    height: 65px;
+    /*height: 65px;*/
     display: flex;
     flex-direction: row;
     align-items: center;
-    background-color: rgba(255, 255, 255, .75);
+    /*background-color: rgba(255, 255, 255, .75);*/
     letter-spacing: 0.5px;
+    pointer-events: none
 }
 
 #sole-encabezado img {
     width: auto;
-    height: 40px;
+    height: 80px;
 }
 
 #sole-encabezado>div {
@@ -573,7 +606,7 @@ html {
     transition: left .5s ease;
     height: 100%;
     overflow: auto;
-    background: var(--color1)  repeat center;
+    background: var(--blanco)  repeat center;
     color: var(--color2);
     z-index: 99;
 }
@@ -637,15 +670,15 @@ html {
 }
 
 ul li:nth-child(1) .tipo-enlace.activo+div {
-    box-shadow: 0 0 0 4px var(--color4) inset;
+    box-shadow: 0 0 0 4px var(--color1) inset;
 }
 
 ul li:nth-child(2) .tipo-enlace.activo+div {
-    box-shadow: 0 0 0 4px var(--color3) inset;
+    box-shadow: 0 0 0 4px var(--color1) inset;
 }
 
 ul li:nth-child(3) .tipo-enlace.activo+div {
-    box-shadow: 0 0 0 4px var(--color5) inset;
+    box-shadow: 0 0 0 4px var(--color1) inset;
 }
 
 /*Menu secundario*/
@@ -709,7 +742,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 
 #pantalla-carga {
     position: fixed;
-    background: var(--color1);
+    background: rgb(185, 185, 185);
     width: 100%;
     height: 100%;
     z-index: 100000;
@@ -722,7 +755,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 400px;
+    width: 240px;
     transition: all 1s ease;
 }
 
@@ -779,7 +812,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     position: fixed;
     display: flex;
     flex-direction: column;
-    top: 95px;
+    top: 35px;
     right: 30px;
     text-align: right;
     transition: transform .5s ease;
@@ -789,7 +822,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 }
 #menuflotante a {
     text-decoration: none;
-    color: var(--color1);
+    color: var(--grisOscuro);
     font-weight: 800;
     display: inline-block;
     margin-bottom: 8px;
@@ -804,22 +837,53 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     right: 0;
     width: 30px;
     height: 30px;
-    border: 1px solid var(--color1);
+    /*border: 1px solid var(--color1);*/
     border-radius: 100%;
     transition: all .2s linear;
     text-align: center;
+    background: var(--blanco);
+    box-shadow: 0 5px 20px rgba(72, 91, 121, 0.2);
 }
 
 #menuflotante path {
     transition: all .2s linear;
+    
+    
 }
-
+#btnUnidades path {
+    stroke: var(--color1);
+    fill: var(--color1);
+}
+#btnCercanias path,  #btnFavoritos path {
+    fill: var(--color1);
+}
+#btnZonas path {
+    fill: var(--color1)!important;
+}
+#menuflotante a:hover {
+    color: var(--color1);
+}
 #menuflotante a:hover i {
     background: var(--color1)
 }
 
-#btnUnidades:hover i path, #btnCercanias:hover i path {
-    fill: var(--colorBlanco)
+#btnUnidades:hover path {
+    stroke: var(--blanco);
+    fill: var(--blanco);
+}
+#btnCercanias:hover path,  #btnFavoritos:hover path {
+    fill: var(--blanco);
+}
+#btnZonas:hover path {
+    fill: var(--blanco)!important;
+}
+
+#modal-unidades h2 path {
+    stroke: var(--color1);
+    fill: var(--color1);
+}
+#modal-cercanias h2 path, #modal-favoritos h2 path {
+    fill: var(--color1);
 }
 
 .modal {
@@ -868,17 +932,18 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     right: 0;
     width: 30px;
     height: 30px;
-    border: 1px solid var(--color1);
+    /*border: 1px solid var(--color1);*/
     border-radius: 100%;
     text-align: center;
-    background-color: var(--color1);
+    background-color: var(--blanco);
     line-height: 35px;
     top: 50%;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
+    box-shadow: 0 5px 20px rgba(72, 91, 121, 0.2);
 }
 
 #modal-unidades h2 i path {
-    fill: var(--colorBlanco)
+    fill: var(--blanco)
 }
 
 #modal-unidades > div > div > h3 {
@@ -930,7 +995,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     border: none;
     padding: 8px 12px;
     border-radius: 6px;
-    color: var(--color1);
+    color: var(--grisOscuro);
     transition: all .25s linear;
     font-family: var(--fuente1);
 }
@@ -946,7 +1011,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 .form-control input:focus, .form-control select:focus, .form-control input:not(:placeholder-shown) {
     outline: none;
     box-shadow: 0 0 0 2px var(--color1);
-    background: var(--colorBlanco)
+    background: var(--blanco)
 }
 
 .menu-tipologias ul {
@@ -1021,7 +1086,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 .form-control input[type="submit"] {
     background: var(--color1) !important;
     border: none !important;
-    color: var(--colorBlanco);
+    color: var(--blanco);
     font-weight: 800;
     font-size: 16px;
     letter-spacing: 0.05em;
@@ -1089,7 +1154,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     position: relative;
     width: 40px;
     height: 40px;
-    box-shadow: 0 0 0 4px var(--colorBlanco);
+    box-shadow: 0 0 0 4px var(--blanco);
     border-radius: 100%;
 }
 
@@ -1110,7 +1175,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     margin: 8px auto 0;
     height: 16px;
     width: 32px;
-    background: var(--colorBlanco);
+    background: var(--blanco);
     border-radius: 24px;
 }
 
@@ -1207,7 +1272,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     background: var(--color1);
     display: inline;
     margin: 0 4px 4px 0;
-    color: var(--colorBlanco);
+    color: var(--blanco);
     font-size: 12px;
     padding: 2px 8px;
     border-radius: 6px;
@@ -1250,7 +1315,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     background-color: var(--gris)
 }
 .listado-resultados table tbody tr.activo {
-    color: var(--colorBlanco);
+    color: var(--blanco);
     background: var(--color1);
 }
 .listado-resultados table td, .listado-resultados table th {
@@ -1270,7 +1335,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 }
 
 .listado-resultados td:last-child:hover path, .listado-resultados td.favorito path {
-    fill: var(--color3);
+    fill: var(--color1);
     stroke-width: 0;
 }
 
@@ -1300,7 +1365,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 
 #btn-nueva-busqueda:hover {
     background-color: var(--color1);
-    color: var(--colorBlanco);
+    color: var(--blanco);
 }
 
 .cercanias-contenedor {
@@ -1358,8 +1423,8 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     position: absolute;
     width: 260px;
     height: 100px;
-    border: 1px solid var(--color1);
-    background-color: var(--colorBlanco);
+    /*border: 1px solid var(--color1);*/
+    background-color: var(--blanco);
     padding: 4px;
     align-items: center;
     z-index: 98;
@@ -1370,6 +1435,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     opacity: 0;
     transition: opacity .5s ease;
     pointer-events: all;
+    box-shadow: 0 5px 20px rgba(72, 91, 121, 0.2);
 }
 #tooltip-apto.activo {
     display: flex;
@@ -1428,4 +1494,47 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 }
 #webpack-dev-server-client-overlay {
     display: none !important;
+}
+/*Cusezar*/
+.hotspot-label, .hotspot .texto {
+    background: #FFFFFF;
+    padding: 16px;
+    color: #fb010b;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 16px !important;
+    box-shadow: 0 5px 20px rgba(72, 91, 121, 0.2)
+}
+.hotspot .texto .distancia {
+    color: #707070;
+}
+
+.hotspot-label::after, .hotspot .texto::after {
+    content: "";
+    top: -5px;
+    bottom: -5px;
+    left: -5px;
+    right: -5px;
+    position: absolute;
+    border: 1px solid #222431;
+    border-radius: 30px;
+    display: none;
+}
+.hotspot .label {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 100% !important;
+    border: 1px solid #fb010b;
+    cursor: pointer;
+    transition: all .5s ease;
+    transform: scale(0, 0);
+}
+.hw-cercanias .hotspot .label:before {
+    background: #fb010b
+}
+.hotspot .texto::before {
+    border-color: #fb010b
 }

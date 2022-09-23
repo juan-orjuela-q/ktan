@@ -39,11 +39,10 @@ export default class Mapa {
                         const linesGeometry = new THREE.EdgesGeometry(meshGeometry)
                         const mesh = new THREE.Mesh(meshGeometry, this.material)
                         const lines = new THREE.LineSegments(linesGeometry, this.materialLinea)
-                        mesh.castShadow = true
+                        //mesh.castShadow = true
                         this.grupo.add(mesh, lines)
                     } else {
                         const mesh = new THREE.Mesh(meshGeometry, this.material)
-                        
                         mesh.receiveShadow = true
                         this.grupo.add(mesh)
                     }

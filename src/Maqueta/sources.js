@@ -14,16 +14,8 @@ export default [
         ]
     },
     //Texturas proyecto
-    {
-        name: 'textura_cubierta_verde',
-        type: 'texture',
-        path: 'texturas/proyecto/proyecto_4k/cubierta_verde.webp'
-    },
-    {
-        name: 'textura_piso1_bajada',
-        type: 'texture',
-        path: 'texturas/proyecto/proyecto_4k/piso1_bajada.webp'
-    },
+    
+    
     {
         name: 'textura_piso1_entrada_vehiculos',
         type: 'texture',
@@ -39,11 +31,11 @@ export default [
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/piso1_muros.webp'
     },
-    {
+    /*{
         name: 'textura_piso1_parque',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/piso1_parque.webp'
-    },
+    },*/
     {
         name: 'textura_piso1_pergola',
         type: 'texture',
@@ -59,27 +51,22 @@ export default [
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/piso1_ventanas.webp'
     },
-    {
+    /*{
         name: 'textura_piso1',
         type: 'texture',
-        path: 'texturas/proyecto/proyecto_4k_color/piso1.webp'
-    },
+        path: 'texturas/proyecto/proyecto_4k/piso1.webp'
+    },*/       
     /*{
-        name: 'textura_primer_piso',
-        type: 'texture',
-        path: 'texturas/proyecto/proyecto_4k/primer_piso.webp'
-    },*/
-    {
         name: 'textura_rampa',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/rampa.webp'
-    },
+    },*/
     {
         name: 'textura_torre1_balcon_plano',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre1_balcon_plano.webp'
     },
-    {
+    /*{
         name: 'textura_torre1_balcon',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre1_balcon.webp'
@@ -88,23 +75,23 @@ export default [
         name: 'textura_torre1_pergolas',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre1_pergolas.webp'
-    },
+    },*/
     {
         name: 'textura_torre1_ventanas',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre1_ventanas.webp'
     },
-    {
+    /*{
         name: 'textura_torre1',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre1.webp'
-    },
+    },*/
     {
         name: 'textura_torre2_balcon_plano',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre2_balcon_plano.webp'
     },
-    {
+    /*{
         name: 'textura_torre2_balcon',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre2_balcon.webp'
@@ -113,23 +100,23 @@ export default [
         name: 'textura_torre2_pergolas',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre2_pergolas.webp'
-    },
+    },*/
     {
         name: 'textura_torre2_ventanas',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre2_ventanas.webp'
     },
-    {
+    /*{
         name: 'textura_torre2',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre2.webp'
-    },
+    },*/
     {
         name: 'textura_torre3_balcon_plano',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre3_balcon_plano.webp'
     },
-    {
+    /*{
         name: 'textura_torre3_balcon',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre3_balcon.webp'
@@ -138,18 +125,58 @@ export default [
         name: 'textura_torre3_pergolas',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre3_pergolas.webp'
-    },
+    },*/
     {
         name: 'textura_torre3_ventanas',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre3_ventanas.webp'
     },
-    {
+    /*{
         name: 'textura_torre3',
         type: 'texture',
         path: 'texturas/proyecto/proyecto_4k/torre3.webp'
-    },
+    },*/
     //Proyecto color
+    {
+        name: 'textura_arboles_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/arboles.webp'
+    },
+    {
+        name: 'textura_cubierta_verde_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/cubierta_verde.webp'
+    },
+    {
+        name: 'textura_piso1_entrada_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/piso1_entrada.webp'
+    },
+    {
+        name: 'textura_piso1_muros_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/piso1_muros.webp'
+    }, 
+    {
+        name: 'textura_piso1_parque_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/piso1_parque.webp'
+    },
+    {
+        name: 'textura_piso1_pergola_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/piso1_pergola.webp'
+    },   
+    {
+        name: 'textura_piso1_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/piso1.webp'
+    },
+    {
+        name: 'textura_rampa_color',
+        type: 'texture',
+        path: 'texturas/proyecto/proyecto_4k_color/rampa.webp'
+    }, 
     {
         name: 'textura_torre1_color',
         type: 'texture',
@@ -197,20 +224,25 @@ export default [
     },
     //Texturas contexto
     {
+        name: 'textura_nubes',
+        type: 'texture',
+        path: 'texturas/contexto/nubes.png'
+    }, 
+    {
         name: 'textura_terreno_elevacion',
         type: 'texture',
         path: 'texturas/contexto/terreno_elevacion.jpg'
     },
     //SVG Mapa
-    /*{
-        name: 'svg_andenes',
-        type: 'svg',
-        path: 'mapa/andenes.svg'
-    },*/
     {
         name: 'svg_andenes',
         type: 'svg',
         path: 'mapa/andenes.svg'
+    },
+    {
+        name: 'svg_manzanas',
+        type: 'svg',
+        path: 'mapa/manzanas.svg'
     },
     {
         name: 'svg_arboles',
@@ -223,15 +255,30 @@ export default [
         path: 'mapa/edificios.svg'
     },
     {
-        name: 'svg_edificios_altos',
+        name: 'svg_edificios_bajos',
         type: 'svg',
-        path: 'mapa/edificios_altos.svg'
+        path: 'mapa/edificios_bajos.svg'
+    },
+    {
+        name: 'svg_vecinos',
+        type: 'svg',
+        path: 'mapa/vecinos.svg'
+    },
+    {
+        name: 'svg_vecinos_bajos',
+        type: 'svg',
+        path: 'mapa/vecinos_bajos.svg'
     },
     {
         name: 'svg_transito',
         type: 'svg',
         path: 'mapa/transito.svg'
     },
+    {
+        name: 'svg_coord_arboles',
+        type: 'svg',
+        path: 'mapa/coord_arboles.svg'
+    },/*
     {
         name: 'svg_transito_fijo',
         type: 'svg',
@@ -241,18 +288,14 @@ export default [
         name: 'svg_vias',
         type: 'svg',
         path: 'mapa/vias.svg'
-    },
+    },*/
     //Modelos proyecto
     {
         name: 'modelo_cubierta_verde',
         type: 'gltfModel',
         path: 'modelos/proyecto/cubierta_verde.glb'
     },
-    {
-        name: 'modelo_piso1_bajada',
-        type: 'gltfModel',
-        path: 'modelos/proyecto/piso1_bajada.glb'
-    },
+    
     {
         name: 'modelo_piso1_entrada_vehiculos',
         type: 'gltfModel',
@@ -293,11 +336,7 @@ export default [
         type: 'gltfModel',
         path: 'modelos/proyecto/piso1.glb'
     },
-    {
-        name: 'modelo_primer_piso',
-        type: 'gltfModel',
-        path: 'modelos/proyecto/primer_piso.glb'
-    },
+    
     {
         name: 'modelo_rampa',
         type: 'gltfModel',
@@ -394,30 +433,23 @@ export default [
         path: 'modelos/proyecto/torre3.glb'
     },
     //Modelos contexto
-    /*{
+    {
+        name: 'modelo_arboles',
+        type: 'gltfModel',
+        path: 'modelos/contexto/arboles.glb'
+    },
+    {
         name: 'modelo_arbol_1',
         type: 'gltfModel',
         path: 'modelos/contexto/arbol_1.glb'
-    },*/
-    {
-        name: 'textura_nubes',
-        type: 'texture',
-        path: 'texturas/contexto/nubes.png'
     },
     {
-        name: 'satelital',
-        type: 'texture',
-        path: 'mapa/satelital_gris.png'
-    },
-    
-    //Modelos vecinos
-    /*{
-        name: 'modelo_comercio',
+        name: 'modelo_arbol_2',
         type: 'gltfModel',
-        path: 'modelos/vecinos/comercio.glb'
-    },*/
+        path: 'modelos/contexto/arbol_2.glb'
+    },
     //Patrones
-    {
+    /*{
         name: 'asfaltDark',
         type: 'texture',
         path: 'texturas/patrones/asfalt-dark.jpg'
@@ -481,11 +513,21 @@ export default [
         name: 'leather',
         type: 'texture',
         path: 'texturas/patrones/leather.jpg'
-    },
+    },*/
     {
         name: 'cartographer',
         type: 'texture',
         path: 'texturas/patrones/cartographer.jpg'
+    },
+    {
+        name: 'cartonEdificios',
+        type: 'texture',
+        path: 'texturas/patrones/carton-edificios.jpg'
+    },
+    {
+        name: 'textil',
+        type: 'texture',
+        path: 'texturas/patrones/textil.png'
     },
     //Inventario
     {

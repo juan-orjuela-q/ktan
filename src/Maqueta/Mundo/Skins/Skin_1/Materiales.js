@@ -79,7 +79,7 @@ export default class Materiales {
             map: this.recursos.items.textura_piso1_ventanas
         })
         this.materialesProyecto.piso1 = new THREE.MeshStandardMaterial({
-            map: this.recursos.items.textura_piso1
+            map: this.recursos.items.textura_piso1_color
         })
         //
         /*this.materialesProyecto.primer_piso = new THREE.MeshStandardMaterial({

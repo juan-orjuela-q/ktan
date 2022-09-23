@@ -8,12 +8,12 @@ import Camara from './Camara.js'
 import Renderer from './Renderer.js'
 import Tamanos from "./Utils/Tamanos.js"
 import Tiempo from "./Utils/Tiempo.js"
-import Colores from "./Mundo/Skins/Skin_1/Colores.js"
+import Colores from "./Mundo/Skins/Skin_2/Colores.js"
 import Mundo from './Mundo/Mundo.js'
 import Recursos from './Utils/Recursos.js'
 import sources from './sources.js'
 import Debug from './Utils/Debug.js'
-import Materiales from './Mundo/Skins/Skin_1/Materiales.js'
+import Materiales from './Mundo/Skins/Skin_2/Materiales.js'
 import Interaccion from './Interaccion/Interaccion.js'
 import Hotspots from './Interaccion/Hotspots.js'
 import Inventario from './Inventario.js'
@@ -117,18 +117,20 @@ export default class Maqueta {
         const controles = this.camara.controles
         controles.enabled = false
         gsap.to(this.camara.instancia.position, {
-            duration: 4,
-            delay: 2,
+            duration: 5,
+            delay: 3,
             ease: "power3.out",
-            x: -14.289,
-            y: 2.000,
-            z: -3.535,
+            x: -2.65,
+            y: 1.87,
+            z: -0.515,
             onUpdate: function () {
                 controles.update()
             },
             onComplete: function () {
+                controles.maxDistance = 4
                 controles.enabled = true
                 logo.classList.add('cargado')
+
                 setTimeout(()=>{pantallaCarga.style.display = 'none'}, 1000)
             }
         })
@@ -268,7 +270,7 @@ export default class Maqueta {
     moverCamara(child) {
         //Mover camara
         const aptoX = child.position.x * this.mundo.mascarasProyecto.scale.x + (this.tamanos.posicionProyecto.x * 1),
-            aptoY = child.position.y * this.mundo.mascarasProyecto.scale.y + (this.tamanos.posicionProyecto.y * 1),
+            aptoY = child.position.y * this.mundo.mascarasProyecto.scale.y + (this.tamanos.posicionProyecto.y * -1),
             aptoZ = child.position.z * this.mundo.mascarasProyecto.scale.z + (this.tamanos.posicionProyecto.z * 1)
 
         const controles = this.camara.controles
@@ -293,10 +295,13 @@ export default class Maqueta {
 
         gsap.to(this.camara.instancia.position, {
             duration: 1,
-            x: this.tamanos.posicionCamara.x,
+            /*x: this.tamanos.posicionCamara.x,
             y: this.tamanos.posicionCamara.y,
             //z: this.tamanos.posicionCamara.z,
-            z: 6,
+            z: 6,*/
+            x: -1.54,
+            y: 2.154,
+            z: 2.58,
             onUpdate: function () {
                 controles.update()
             },
