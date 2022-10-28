@@ -8,15 +8,16 @@ import Camara from './Camara.js'
 import Renderer from './Renderer.js'
 import Tamanos from "./Utils/Tamanos.js"
 import Tiempo from "./Utils/Tiempo.js"
-import Colores from "./Mundo/Skins/Skin_2/Colores.js"
+import Colores from "./Mundo/Skins/Skin_Light/Colores.js"
 import Mundo from './Mundo/Mundo.js'
 import Recursos from './Utils/Recursos.js'
 import sources from './sources.js'
 import Debug from './Utils/Debug.js'
-import Materiales from './Mundo/Skins/Skin_2/Materiales.js'
+import Materiales from './Mundo/Skins/Skin_Light/Materiales.js'
 import Interaccion from './Interaccion/Interaccion.js'
 import Hotspots from './Interaccion/Hotspots.js'
 import Inventario from './Inventario.js'
+import ToggleRealismo from './Interaccion/toggleRealismo.js'
 
 
 
@@ -58,6 +59,7 @@ export default class Maqueta {
         this.brujula_dir = new THREE.Vector3()
         this.brujula_sph = new THREE.Spherical()
         this.brujula = document.getElementById('brujula')
+        //this.toggleRealismo = new ToggleRealismo()
         
 
 
@@ -127,7 +129,7 @@ export default class Maqueta {
                 controles.update()
             },
             onComplete: function () {
-                controles.maxDistance = 4
+                controles.maxDistance = 6
                 controles.enabled = true
                 logo.classList.add('cargado')
 
@@ -226,52 +228,17 @@ export default class Maqueta {
         this.brujula_sph.setFromVector3(this.brujula_dir)
         this.brujula.style.transform = `rotate(${THREE.Math.radToDeg(this.brujula_sph.theta) - 180}deg)`;
     }
-    /*aislarApto(identificador) {
-
-        const filasResultados = Array.from(document.querySelectorAll('#modal-unidades tbody tr'))
-        const filasFavoritos = Array.from(document.querySelectorAll('#modal-favoritos tbody tr'))
-
-        if (filasResultados) {
-            filasResultados.forEach(fila => fila.classList.remove('activo'))
-            let fila = filasResultados.find(fila => fila.dataset.apto === identificador)
-            fila.classList.add('activo')
-        }
-
-        this.mundo.mascarasProyecto.traverse((child) => {
-
-            if (child.type === "Mesh") {
-                //Limpiar mascaras
-
-                //Poner mascara
-                if (child.userData.id === identificador) {
-                    child.userData.activo = true
-                    child.material = this.materiales.materialesProyecto.mascaraClick
-
-                    this.moverCamara(child)
-
-
-                    //Mostrar tooltip
-
-                    this.interaccion.tooltipApto.classList.add('activo')
-                    this.interaccion.btnMostrarApto.dataset.destino = identificador
-                    //Pintar info
-
-                    let obj = this.recursos.items.inventario.find(obj => obj.id === identificador)
-
-                    this.interaccion.tool_torre.innerHTML = obj.torre
-                    this.interaccion.tool_apto.innerHTML = obj.apto_tit
-                    this.interaccion.tool_ac.innerHTML = obj.area_ac
-                    this.interaccion.tool_ap.innerHTML = obj.area_ap
-                    this.interaccion.tool_img.innerHTML = `<img src="${obj.img_planta}" alt="Planta de unidad">`
-                }
-            }
-        })
-    }*/
+    
     moverCamara(child) {
         //Mover camara
-        const aptoX = child.position.x * this.mundo.mascarasProyecto.scale.x + (this.tamanos.posicionProyecto.x * 1),
-            aptoY = child.position.y * this.mundo.mascarasProyecto.scale.y + (this.tamanos.posicionProyecto.y * -1),
-            aptoZ = child.position.z * this.mundo.mascarasProyecto.scale.z + (this.tamanos.posicionProyecto.z * 1)
+        const target = new THREE.Vector3()
+        child.getWorldPosition(target)
+
+        
+        const aptoX = target.x,
+            aptoY = target.y,
+            aptoZ = target.z
+
 
         const controles = this.camara.controles
         controles.enabled = false
@@ -293,22 +260,22 @@ export default class Maqueta {
             camaraZ = 6
         }*/
 
-        gsap.to(this.camara.instancia.position, {
-            duration: 1,
-            /*x: this.tamanos.posicionCamara.x,
-            y: this.tamanos.posicionCamara.y,
-            //z: this.tamanos.posicionCamara.z,
-            z: 6,*/
-            x: -1.54,
-            y: 2.154,
-            z: 2.58,
-            onUpdate: function () {
-                controles.update()
-            },
-            onComplete: function () {
-                controles.enabled = true
-            }
-        })
+    //    gsap.to(this.camara.instancia.position, {
+    //         duration: 1,
+    //         x: this.tamanos.posicionCamara.x,
+    //         y: this.tamanos.posicionCamara.y,
+    //         //z: this.tamanos.posicionCamara.z,
+    //         z: 6,
+    //         x: -1.54,
+    //         y: 2.154,
+    //         z: 2.58,
+    //         onUpdate: function () {
+    //             controles.update()
+    //         },
+    //         onComplete: function () {
+    //             controles.enabled = true
+    //         }
+    //     })
 
         gsap.to(controles.target, {
             duration: 1,
@@ -324,54 +291,4 @@ export default class Maqueta {
         })
 
     }
-    /*quitarAislamiento(animarCamara) {
-        this.interaccion.tooltipApto.classList.remove('activo')
-        this.interaccion.btnMostrarApto.dataset.destino = ''
-
-        const filasResultados = Array.from(document.querySelectorAll('#modal-unidades tbody tr'))
-        const filasFavoritos = Array.from(document.querySelectorAll('#modal-favoritos tbody tr'))
-
-        if (filasResultados) {
-            filasResultados.forEach(fila => fila.classList.remove('activo'))
-        }
-
-        this.mundo.mascarasProyecto.traverse((child) => {
-            if (child.type === "Mesh") {
-                child.material = this.materiales.materialesProyecto.mascaras
-                child.userData.activo = false
-                //child.visible = false
-            }
-        })
-
-        if (animarCamara) {
-            const controles = this.camara.controles
-            controles.enabled = false
-            gsap.to(controles.target, {
-                duration: 1,
-                x: 0,
-                y: 0,
-                z: 0,
-                onUpdate: function () {
-                    controles.update();
-                },
-                onComplete: function () {
-                    controles.enabled = true;
-                }
-            })
-
-            gsap.to(this.camara.instancia.position, {
-                duration: 1,
-                x: this.camara.instancia.position.x,
-                y: this.camara.instancia.position.y,
-                z: this.camara.instancia.position.z * 1.5,
-                onUpdate: function () {
-                    controles.update()
-                },
-                onComplete: function () {
-                    controles.enabled = true
-                }
-            })
-        }
-
-    }*/
 }

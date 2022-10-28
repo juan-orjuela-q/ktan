@@ -40,14 +40,14 @@ export default class Renderer {
         this.instancia.setSize(this.tamanos.ancho, this.tamanos.alto)
 
         this.instancia.setPixelRatio(Math.min(this.tamanos.pixelRatio, 2))
-        this.instancia.setClearColor(this.colores.coloresMundo.colorAmbiente)
+        this.instancia.setClearColor(this.colores.coloresMundo.colorCielo)
         if (this.debug.active) {
             //console.log(niebla)
 
             this.debugEntorno
                 .addColor(this.colores.coloresMundo, 'colorAmbiente')
                 .onChange(() => {
-                    this.instancia.setClearColor(this.colores.coloresMundo.colorAmbiente)
+                    this.instancia.setClearColor(this.colores.coloresMundo.colorCielo)
                 })
                 .name('Cielo')
         }

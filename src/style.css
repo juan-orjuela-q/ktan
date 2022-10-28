@@ -632,7 +632,7 @@ html {
     width: 100%;
     top: 50%;
     left: 50%;
-    object-fit: contain;
+    object-fit: cover;
     transform: translate(-50%, -50%);
     position: absolute;
 }
@@ -742,7 +742,8 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 
 #pantalla-carga {
     position: fixed;
-    background: rgb(185, 185, 185);
+    background: rgb(129, 129, 129) url('https://proyectosappicua.com/maqueta/img/syrah-fachada.jpg') no-repeat center;
+    background-size: cover;
     width: 100%;
     height: 100%;
     z-index: 100000;
@@ -891,6 +892,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     right: 0;
     top: 0;
     height: 100%;
+    overflow: auto;
     background: rgba(255, 255, 255, .95);
     border-left: 1px solid #E6E6E6;
     z-index: 99;
@@ -904,7 +906,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 }
 
 .modal {
-    width: 25%;
+    width: 85%;
     max-height: 100%;
     display: flex;
     flex-direction: column;
@@ -1127,7 +1129,7 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
     width: 100% !important;
     height: 100% !important;
     z-index: -1;
-    background: var(--color1);
+    background: var(--grisOscuro);
     opacity: 0;
 }
 
@@ -1221,20 +1223,20 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 }
 
 
-.listado-resultados ::-webkit-scrollbar {
+::-webkit-scrollbar {
   width: 4px;
 }
 
 /* Track */
-.listado-resultados ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
   background: var(--gris);
 }
 
-.listado-resultados ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
   background: var(--grisOscuro);
 }
 
-.listado-resultados ::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: var(--color1);
   cursor: pointer;
 }
@@ -1537,4 +1539,26 @@ ul li:nth-child(3) .tipo-enlace.activo+div {
 }
 .hotspot .texto::before {
     border-color: #fb010b
+}
+#modal-zonas {
+    max-width: 280px;
+    background: transparent;
+    height: initial;
+    border:none
+}
+#modal-zonas .btnCerrar-modal:after {
+    content: '';
+    left: 50%;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    background: var(--color1);
+    border-radius: 100%;
+    position: absolute;
+    z-index: -1;
+    margin-top: -4px;
+}
+#modal-zonas .btnCerrar-modal path {
+    stroke: #ffffff;
 }

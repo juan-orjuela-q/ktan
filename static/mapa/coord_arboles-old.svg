@@ -3,19 +3,13 @@
   <g style="opacity: .3;">
     <circle cx="1034.1" cy="982.5" r=".3" style="fill: #f0f;"/>
   </g>
-  <circle cx="1003.3" cy="1065.4" r="1" style="fill: #f0f;"/>
-  <circle cx="1052.4" cy="1047" r="1" style="fill: #f0f;"/>
-  <circle cx="1005.7" cy="1060.4" r="1" style="fill: #f0f;"/>
-  <circle cx="1008.5" cy="1077.3" r="1" style="fill: #f0f;"/>
-  <circle cx="1042.3" cy="1053.7" r="1" style="fill: #f0f;"/>
-  <circle cx="1049.2" cy="1043.8" r="1" style="fill: #f0f;"/>
-  <circle cx="1060" cy="1032" r="1" style="fill: #f0f;"/>
-  <circle cx="1002" cy="1057.2" r="1" style="fill: #f0f;"/>
-  <circle cx="1054.7" cy="1025.7" r="1" style="fill: #f0f;"/>
-  <circle cx="1066.2" cy="1031.6" r="1" style="fill: #f0f;"/>
-  <circle cx="996.4" cy="1055.1" r="1" style="fill: #f0f;"/>
-  <circle cx="993.4" cy="1051.1" r="1" style="fill: #f0f;"/>
-  <circle cx="1032.2" cy="1056.6" r="1" style="fill: #f0f;"/>
+  <g style="opacity: .3;">
+    <circle cx="1003.3" cy="1065.4" r="1" style="fill: #f0f;"/>
+    <circle cx="1003.5" cy="1061" r="1" style="fill: #f0f;"/>
+    <circle cx="1002" cy="1057.2" r="1" style="fill: #f0f;"/>
+    <circle cx="996.4" cy="1055.1" r="1" style="fill: #f0f;"/>
+    <circle cx="993.4" cy="1051.1" r="1" style="fill: #f0f;"/>
+  </g>
   <g style="opacity: .3;">
     <circle cx="1001.1" cy="1068.1" r="1" style="fill: #f0f;"/>
     <circle cx="998" cy="1064" r="1" style="fill: #f0f;"/>
@@ -1211,21 +1205,6 @@
   </g>
   <g style="opacity: .3;">
     <circle cx="1058.7" cy="1126" r="1" style="fill: #f0f;"/>
-  </g>
-  <g style="opacity: .3;">
-    <circle cx="1071.6" cy="1112.7" r="1" style="fill: #f0f;"/>
-  </g>
-  <g style="opacity: .3;">
-    <circle cx="1079.2" cy="1109" r="1" style="fill: #f0f;"/>
-  </g>
-  <g style="opacity: .3;">
-    <circle cx="1084.1" cy="1093.9" r="1" style="fill: #f0f;"/>
-  </g>
-  <g style="opacity: .3;">
-    <circle cx="1082" cy="1102.7" r="1" style="fill: #f0f;"/>
-  </g>
-  <g style="opacity: .3;">
-    <circle cx="1072.3" cy="1103.7" r="1" style="fill: #f0f;"/>
   </g>
   <g style="opacity: .3;">
     <circle cx="1064.4" cy="1137.2" r="1" style="fill: #f0f;"/>

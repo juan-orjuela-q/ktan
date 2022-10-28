@@ -2,10 +2,10 @@
 import * as THREE from 'three'
 //Proyecto
 import Maqueta from '../Maqueta.js'
-import Ambiente from './Skins/Skin_Light/Ambiente.js'
+import Ambiente from './Skins/Skin_Blanco/Ambiente.js'
 import Mapa from './Mapa.js'
 import Modelo from './Modelo.js'
-import Materiales from './Skins/Skin_Light/Materiales.js'
+import Materiales from './Skins/Skin_Blanco/Materiales.js'
 
 export default class Mundo {
     constructor() {

@@ -18,10 +18,12 @@ export default class Interaccion {
         this.btnFiltrar = document.getElementById('filtrar')
         this.modalUnidades = document.getElementById('modal-unidades')
         this.btnNuevaBusqueda = document.getElementById('btn-nueva-busqueda')
+        this.btnCerrarBusqueda = this.modalUnidades.querySelector('.btnCerrar-modal')
         this.tablaResultados = document.querySelector('#resultados tbody')
         this.filasApto = document.querySelectorAll('.listado-resultados tbody tr')
         this.btnMostrarZonas = document.getElementById('btnZonas')
         //Modal hotspot zonas
+        this.btnCerrarZonas = document.querySelector('#modal-zonas .btnCerrar-modal')
         this.modalHotspot = document.querySelector('#modal-hotspots')
         this.hotImg = this.modalHotspot.querySelector('.hotspot-img')
         this.hotLabel = this.modalHotspot.querySelector('.hotspot-label')
@@ -36,7 +38,6 @@ export default class Interaccion {
                 this.hotLabel.innerHTML = 'Syrah - Zonas sociales'
             })
         })
-
         //Temp cerrar modal zonas
         //Boton cerrar
         this.modalHotspot.querySelector('.btn-volver-hot').addEventListener('click', (event) => {
@@ -122,18 +123,39 @@ export default class Interaccion {
         this.btnMostrarZonas.addEventListener('click', () => { this.mostrarZonas(this) }, false)
         //Ver ejemplo de inventario
         console.log('Ejemplo inventario: ', this.inventario[0])
+        //Cerrar busqueda
+        this.btnCerrarBusqueda.addEventListener('click', () => { this.cerrarBusqueda(this) }, false)
+        //Cerrar zonas
+        this.btnCerrarZonas.addEventListener('click', () => { this.ocultarZonas(this) }, false)
 
+    }
+    //Cerrar busqueda temp
+    cerrarBusqueda(interaccion){
+        event.preventDefault()
+
+        interaccion.quitarAislamiento(true)
+
+        interaccion.mundo.mascarasProyecto.traverse((child) => {
+            if (child.type === "Mesh") {
+                child.material = interaccion.materiales.materialesProyecto.mascaras
+                child.userData.activo = false
+                child.visible = false
+                child.layers.disable(1)
+            }
+        })
+
+        interaccion.modalUnidades.classList.remove('mostrando-resultados')
     }
     // Depende de inventario
     filtrar(interaccion) {
         event.preventDefault();
         interaccion.quitarAislamiento();
         //Limpiar máscaras
-        interaccion.maqueta.mundo.mascarasProyecto.traverse(child => {
+        /*interaccion.maqueta.mundo.mascarasProyecto.traverse(child => {
             if (child.type === "Mesh") {
                 child.visible = false
             }
-        })
+        })*/
         interaccion.tablaResultados.innerHTML = ''
         //Consultar json
         for (let i = 0; i < interaccion.inventario.length; i++) {
@@ -177,6 +199,14 @@ export default class Interaccion {
         }
         //Mostrar resultados
         interaccion.modalUnidades.classList.add('mostrando-resultados')
+
+        //Nueva busqueda
+        const btnNuevaBusqueda = document.getElementById('btn-nueva-busqueda')
+        btnNuevaBusqueda.addEventListener('click', event => {
+            event.preventDefault();
+            //Mostrar filtros
+            interaccion.modalUnidades.classList.remove('mostrando-resultados')
+        })
     }
     //
     activarFila(e, interaccion) {
@@ -196,6 +226,7 @@ export default class Interaccion {
 
         if (filasResultados) {
             filasResultados.forEach(fila => fila.classList.remove('activo'))
+            this.quitarAislamiento()
             let fila = filasResultados.find(fila => fila.dataset.apto === identificador)
             fila.classList.add('activo')
         }
@@ -204,6 +235,7 @@ export default class Interaccion {
 
             if (child.type === "Mesh") {
                 //Limpiar mascaras
+                //child.material = this.materiales.materialesProyecto.mascara
                 //Poner mascara
                 if (child.userData.id === identificador) {
                     child.userData.activo = true
@@ -223,7 +255,7 @@ export default class Interaccion {
                     this.tool_ap.innerHTML = obj.area_ap
                     //this.tool_img.innerHTML = `<img src="${obj.img_planta}" alt="Planta de unidad">`
 
-                    this.tool_img.innerHTML = `<img src="/plantas/syrah-apto-1_thumb.jpg" alt="Planta de unidad">`
+                    this.tool_img.innerHTML = `<img src="https://proyectosappicua.com/maqueta/img/syrah-apto-1_thumb.jpg" alt="Planta de unidad">`
                 }
             }
         })
@@ -292,7 +324,7 @@ export default class Interaccion {
         interaccion.modalApto.area_ac.innerHTML = obj.area_ac
         interaccion.modalApto.area_ap.innerHTML = obj.area_ap
         //interaccion.modalApto.img_planta.innerHTML = `<img src="${obj.img_planta}" alt="Planta de unidad">`
-        interaccion.modalApto.img_planta.innerHTML = `<img src="/plantas/syrah-apto-1.jpg" alt="Planta de unidad">`
+        interaccion.modalApto.img_planta.innerHTML = `<img src="https://proyectosappicua.com/maqueta/img/syrah-apto-1.jpg" alt="Planta de unidad">`
         //area_b.innerHTML = obj.area_b
         /*interaccion.modalApto.atributos.innerHTML = `<li>Habitaciones: ${obj.habitaciones}</li><li>Baños: ${obj.banos}</li>`
         if (obj.atributos) {
@@ -409,6 +441,74 @@ export default class Interaccion {
         }
 
         
+    }
+    ocultarZonas(interaccion) {
+        const mundo = interaccion.mundo,
+            elementos = [mundo.mascarasProyecto, mundo.torre1, mundo.torre1_balcon, mundo.torre1_balcon_plano, mundo.torre1_pergolas, mundo.torre1_ventanas, mundo.torre2, mundo.torre2_balcon, mundo.torre2_balcon_plano, mundo.torre2_pergolas, mundo.torre2_ventanas, mundo.torre3, mundo.torre3_balcon, mundo.torre3_balcon_plano, mundo.torre3_pergolas, mundo.torre3_ventanas]
+
+        const controles = this.camara.controles
+
+        //mundo.piso1_muros.modelo.material = this.materiales.materialesProyecto.zonasSeleccionadas
+        function resaltar() {
+            mundo.piso1_muros.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    child.material = interaccion.materiales.materialesProyecto.piso1_muros
+                }
+            })
+            mundo.piso1.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    //child.material = interaccion.materiales.materialesProyecto.pisoSeleccionado
+                }
+            })
+            mundo.cubierta_verde.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    child.visible = true
+                }
+            })
+            mundo.piso1_placa.modelo.traverse(child => {
+                if (child.type === "Mesh") {
+                    child.visible = true
+                    //child.material = interaccion.materiales.materialesProyecto.pisoSeleccionado
+                }
+            })
+        }
+
+
+
+        controles.enabled = false
+        gsap.to(this.camara.instancia.position, {
+            duration: 2,
+            x: -1.46,
+            y: 2.06,
+            z: -0.74,
+            onUpdate: function () {
+                controles.update()
+            },
+            onComplete: function () {
+                controles.enabled = true
+                resaltar()
+                elementos.forEach(elevar)
+                document.querySelector('.hw-zonas').classList.remove('activo')
+            }
+        })
+
+
+        function elevar(item, index, arr) {
+
+            if (item.type === 'Group') {
+                gsap.to(item.position, {
+                    duration: 1,
+                    y: interaccion.maqueta.tamanos.posicionProyecto.y
+                })
+            } else {
+                gsap.to(item.modelo.position, {
+                    duration: 1,
+                    y: 0
+                })
+            }
+
+        }
+       
     }
 
 }
